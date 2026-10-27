@@ -26,13 +26,18 @@ def _gain(value: float) -> float:
     return float(value)
 
 
-def pcm_wem(path: Path, gain_db: float = 0.0) -> bytes:
+def pcm_wem(path: Path, gain_db: float = 0.0, *, normalize: bool = False) -> bytes:
     """Read <=8 seconds of mono/stereo PCM16 WAV at <=48 kHz.
 
     A size budget is checked before reading the file or allocating sample
-    storage. Positive gain saturates at the PCM16 range; it cannot wrap.
+    storage. Optional offline normalization targets -18 dBFS full-clip RMS,
+    with a -1 dBFS peak ceiling and at most 24 dB of upward gain. One linear
+    factor preserves stereo balance and transients. Explicit gain follows
+    normalization and saturates at the PCM16 range; it cannot wrap.
     """
     gain_db = _gain(gain_db)
+    if not isinstance(normalize, bool):
+        raise ValueError("normalize must be a boolean")
     path = Path(path)
     size = path.stat().st_size
     if size > MAX_WAV_BYTES:
@@ -56,12 +61,20 @@ def pcm_wem(path: Path, gain_db: float = 0.0) -> bytes:
                 raise ValueError("truncated WAV PCM data")
     except (wave.Error, EOFError, struct.error) as exc:
         raise ValueError(f"invalid PCM WAV: {exc}") from exc
-    if gain_db:
+    if normalize or gain_db:
         samples = array("h")
         samples.frombytes(pcm)
         if sys.byteorder != "little":
             samples.byteswap()
         factor = 10 ** (gain_db / 20)
+        if normalize:
+            peak = max(abs(value) for value in samples)
+            if peak:
+                rms = math.sqrt(sum(value * value for value in samples) / len(samples))
+                normalization = min(32768 * 10 ** (-18 / 20) / rms,
+                                    math.floor(32768 * 10 ** (-1 / 20)) / peak,
+                                    10 ** (24 / 20))
+                factor *= normalization
         for index, value in enumerate(samples):
             samples[index] = max(-32768, min(32767, round(value * factor)))
         if sys.byteorder != "little":

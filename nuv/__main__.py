@@ -6,6 +6,7 @@ import sys
 import time
 
 from .build import MAX_ADDED_MEDIA, build_bank, remove_package, verify_package, write_package
+from .bank import Bank
 from .game import ROOT, Resources, find_game, game_version
 from .profile import create_profile
 
@@ -38,6 +39,8 @@ def run_build(args) -> dict:
     banks={}
     report={"game_version":version,"game_directory":str(game),"base_profile":str(profile) if profile else None,
             "mode":"existing-profile" if profile else "offline-solo", "banks":{},"added_media_bytes":0,
+            "loose_media_files":0,"loose_media_bytes":0,
+            "media_delivery":["embedded-bank","loose-prepare-event"],
             "runtime":{"processes":0,"dlls":0,"polling":False,"network_messages":0},
             "validation":{"static_bank_structure":True,"in_game_playback":False,"mixed_install_coop":False,"remote_distance":False,"fps_benchmark":False}}
     grouped={}
@@ -57,9 +60,26 @@ def run_build(args) -> dict:
             raise ValueError("All voices together exceed the 16 MiB added media budget")
         report["banks"][bank_name]=detail
         banks[bank_name]=built
+        # PrepareEvent may request in-memory media by file ID even when a bank
+        # includes it. ME3 supports sd/wem/<first two digits>/<id>.wem. Keep an
+        # identical local copy so both LoadBank and preparation can find audio.
+        parsed=Bank.parse(built)
+        for character_detail in detail["characters"]:
+            for event in character_detail["events"]:
+                media_id=event["media_id"]
+                resource=f"sd/wem/{str(media_id)[:2]}/{media_id}.wem"
+                media=parsed.media_bytes(media_id)
+                if resource in banks:
+                    if banks[resource]!=media:
+                        raise ValueError("Generated voice media ID collision across banks")
+                    continue
+                banks[resource]=media
+                report["loose_media_files"]+=1
+                report["loose_media_bytes"]+=len(media)
     report["build_seconds"]=round(time.perf_counter()-started,3)
     write_package(output,banks,profile_text,report)
-    return {"output":str(output),"profile":str(output/"UltimateVoices.me3"),"banks":len(banks),
+    return {"output":str(output),"profile":str(output/"UltimateVoices.me3"),"banks":len(report["banks"]),
+            "loose_media_files":report["loose_media_files"],
             "characters":sum(len(bank["characters"]) for bank in report["banks"].values()),
             "added_media_bytes":report["added_media_bytes"],"build_seconds":report["build_seconds"]}
 

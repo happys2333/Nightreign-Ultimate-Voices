@@ -55,13 +55,15 @@ def build_bank(source: bytes, mapping: dict, voices: dict, config_directory: Pat
         audio_path = Path(entry["audio"]).expanduser()
         if not audio_path.is_absolute():
             audio_path = config_directory / audio_path
-        gain = entry.get("gain_db", voices.get("gain_db", -6.0))
-        wem = pcm_wem(audio_path, gain_db=gain)
+        gain = entry.get("gain_db", voices.get("gain_db", 0.0))
+        normalize = entry.get("normalize", voices.get("normalize", True))
+        wem = pcm_wem(audio_path, gain_db=gain, normalize=normalize)
         events = character.get("events", [])
         if not events:
             raise ValueError(f"{identifier}: no verified native ultimate event")
         detail = {"id":identifier,"name_zh":character.get("name_zh",identifier),
-                  "audio":str(audio_path.resolve()), "gain_db":gain,"events":[]}
+                  "audio":str(audio_path.resolve()), "gain_db":gain,
+                  "normalize":normalize,"events":[]}
         for event_name in events:
             if not isinstance(event_name,str) or not event_name.startswith("Play_"):
                 raise ValueError("Expected a native Play_ event name")

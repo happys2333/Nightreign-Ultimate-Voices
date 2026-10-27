@@ -154,7 +154,7 @@ def import_voices(source_root: Path,preset: dict,output: Path,*,
     source_root=Path(source_root).resolve()
     if output==source_root or output in source_root.parents:
         raise ValueError("Import output cannot replace its source extraction")
-    identity={"manifest":preset,"decoder":decoder_identity}
+    identity={"manifest":preset,"decoder":decoder_identity,"import_pipeline":2}
     revision=digest(json.dumps(identity,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8"))[:20]
     destination=output/revision
     result={"config":str(destination/"voices.json"),"source_report":str(destination/"sources.json"),"characters":len(selected)}
@@ -177,14 +177,15 @@ def import_voices(source_root: Path,preset: dict,output: Path,*,
     with tempfile.TemporaryDirectory(prefix=".ow-import-",dir=output) as temporary:
         prepared=Path(temporary)/"prepared"
         prepared.mkdir()
-        config={"gain_db":preset.get("gain_db",-6),"characters":{}}
+        config={"gain_db":preset.get("gain_db",0),
+                "normalize":preset.get("normalize",True),"characters":{}}
         report={"overwatch_build":preset["overwatch_build"],"language":preset["language"],
                 "decoder_sha256":decoder_identity,"clips":[]}
         total=0
         for role,source in selected:
             target=prepared/f"{role['nightreign']}.wav"
             decoder(source,target)
-            wem=pcm_wem(target,gain_db=config["gain_db"])
+            wem=pcm_wem(target,gain_db=config["gain_db"],normalize=config["normalize"])
             total+=len(wem)
             if total>16*1024*1024:
                 raise ValueError("Imported audio exceeds the 16 MiB media budget")

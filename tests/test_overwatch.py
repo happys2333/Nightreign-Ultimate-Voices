@@ -43,6 +43,7 @@ class OverwatchTests(unittest.TestCase):
         result=import_voices(self.source,self.preset,self.root/"imports",decoder=decoder,decoder_identity="test-decoder-v1")
         config=json.loads(Path(result["config"]).read_text(encoding="utf-8"))
         self.assertEqual(config["gain_db"],-6)
+        self.assertTrue(config.get("normalize",False))
         self.assertEqual(set(config["characters"]),{"ironeye"})
         audio=Path(result["config"]).parent/config["characters"]["ironeye"]["audio"]
         self.assertTrue(audio.is_file())

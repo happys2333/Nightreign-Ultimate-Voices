@@ -38,6 +38,38 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(report["runtime"], {"processes":0,"dlls":0,"polling":False,"network_messages":0})
         self.assertGreater(report["added_media_bytes"],0)
 
+    def test_build_normalizes_quiet_callouts_by_default_and_allows_role_override(self):
+        from nuv.bank import Bank
+        from nuv.build import build_bank
+        voices = deepcopy(self.voices)
+        voices["gain_db"] = 0
+        for global_flag, role_flag, normalized in (
+                (None, None, True), (False, True, True), (True, False, False)):
+            with self.subTest(global_flag=global_flag, role_flag=role_flag):
+                config = deepcopy(voices)
+                if global_flag is not None:
+                    config["normalize"] = global_flag
+                if role_flag is not None:
+                    config["characters"]["wylder"]["normalize"] = role_flag
+                built, report = build_bank(self.bank(), self.mapping, config, self.root)
+                detail = report["characters"][0]
+                wem = Bank.parse(built).media_bytes(detail["events"][0]["media_id"])
+                sample = struct.unpack_from("<h", wem, 52)[0]
+                if normalized:
+                    self.assertGreater(sample, 4100)
+                    self.assertLess(sample, 4150)
+                else:
+                    self.assertEqual(sample, 1000)
+                self.assertEqual(detail["normalize"], normalized)
+
+    def test_build_rejects_non_boolean_normalization(self):
+        from nuv.build import build_bank
+        for value in (1, "yes", None):
+            voices = deepcopy(self.voices)
+            voices["normalize"] = value
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "normalize"):
+                build_bank(self.bank(), self.mapping, voices, self.root)
+
     def test_refuses_changed_original_event_and_unknown_roles(self):
         from nuv.build import build_bank
         mapping = deepcopy(self.mapping)

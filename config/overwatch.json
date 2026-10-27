@@ -3,7 +3,8 @@
   "overwatch_build": "2.25.0.1.154504N",
   "language": "zhCN",
   "extraction": "pinned_original_wem",
-  "gain_db": -6,
+  "gain_db": 0,
+  "normalize": true,
   "roles": [
     {
       "nightreign": "wylder",
@@ -98,16 +99,17 @@
       "clip": {
         "hero_id": "13B",
         "audience": "friendly",
-        "resource_guid": "00000002B8FA.0B2",
-        "relative_path": "Pinned/00000002B8FA.0B2.wem",
-        "sha256": "faa80967b620f28b4348c018e9d4ff102cda5d388910d21a1c49e89675aa4d90",
-        "subtitle": "纳米激素已注入！",
-        "stimulus_guid": "0000000005F6.078",
+        "resource_guid": "00000002B8CD.0B2",
+        "relative_path": "Pinned/00000002B8CD.0B2.wem",
+        "sha256": "5cf2d0456c67c393aef86af5b34ae55d3ae87117b055cfc3206edafdd8e67bd5",
+        "subtitle": "你被强化了！快上！",
+        "stimulus_guid": "000000000678.078",
         "stimulus_audience_enum": 0,
         "source_audience": "friendly",
         "criteria": "",
-        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
-        "inspected_ogg_sha256": "fe09219cbba586a0f059ae46e9137fd54d3fc7ad82d2bc99b83cfa55e6e6957e"
+        "selection_evidence": "Explicit user choice: Ana boost-target line. STUVoiceStimulus m_DF647B95=0 (friendly), m_EE144B9E=1 (target listener context); original stimulus 000000000678.078 and subtitle verified in local voice-slots.json.",
+        "inspected_ogg_sha256": "2f7aa0a7935e88c19ecc4352936877cf81d972dd2a04ab676806ad3ac71ce83f",
+        "target_listener_context": 1
       }
     },
     {
@@ -187,7 +189,7 @@
   },
   "notes": [
     "Anran normal offensive ultimate selects 火羽焚天; alternate resurrection 朱雀展翅 is not used.",
-    "Ana selects general friendly-team line 纳米激素已注入; recipient-only 你被强化了！快上！ is a separate listener context.",
+    "Ana explicitly selects user-requested 你被强化了！快上！ from the friendly boost-target listener context (02B8CD).",
     "Winston uses the native shared primal activation SFX main layer; no separate enemy-only speech was present.",
     "Guardian and Duchess are not included in this user-specified OW preset."
   ]
