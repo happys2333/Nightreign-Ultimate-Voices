@@ -176,17 +176,18 @@ static class Patcher
     static int ReadInt(byte[] bytes, int offset, bool bigEndian) => bigEndian ? BinaryPrimitives.ReadInt32BigEndian(bytes.AsSpan(offset, 4)) : BinaryPrimitives.ReadInt32LittleEndian(bytes.AsSpan(offset, 4));
     static byte[] Parameters(int soundId, bool bigEndian)
     {
-        byte[] bytes = new byte[8];
-        if (bigEndian)
+        // Match the native ultimate type-129 one-shot rows. In particular,
+        // playback mode 0 lets the voice outlive the short TAE event, and
+        // SoundIDOffsetType -1 posts the exact registered ID, independent of
+        // the character's current skill/ultimate weapon.
+        byte[] bytes = new byte[32];
+        void Int(int offset, int value)
         {
-            BinaryPrimitives.WriteInt32BigEndian(bytes, 1);
-            BinaryPrimitives.WriteInt32BigEndian(bytes.AsSpan(4), soundId);
+            if (bigEndian) BinaryPrimitives.WriteInt32BigEndian(bytes.AsSpan(offset, 4), value);
+            else BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(offset, 4), value);
         }
-        else
-        {
-            BinaryPrimitives.WriteInt32LittleEndian(bytes, 1);
-            BinaryPrimitives.WriteInt32LittleEndian(bytes.AsSpan(4), soundId);
-        }
+        Int(0, 1); Int(4, soundId); Int(8, -1); Int(12, -1);
+        bytes[19] = 1; Int(20, 1); bytes[28] = 0xFF;
         return bytes;
     }
 
@@ -208,8 +209,8 @@ static class Patcher
             var animation = changed.Animations.Single(a => a.ID == operation.AnimationId);
             var ev = animation.Events.Last(); var group = animation.EventGroups.Last();
             byte[] parameters = ev.GetParameterBytes(changed.BigEndian);
-            Require(ev.Type == 128 && ev.Unk04 == 0 && ev.StartTime == operation.Start && ev.EndTime == operation.End &&
-                parameters.Length is >= 8 and <= 16 && parameters.AsSpan(0, 8).SequenceEqual(Parameters(operation.SoundId, changed.BigEndian)) && parameters.Skip(8).All(b => b == 0) &&
+            Require(ev.Type == 129 && ev.Unk04 == 0 && ev.StartTime == operation.Start && ev.EndTime == operation.End &&
+                parameters.SequenceEqual(Parameters(operation.SoundId, changed.BigEndian)) &&
                 ReferenceEquals(ev.Group, group) && group.GroupType == 128 && group.GroupData.Equals(default(TAE.EventGroup.EventGroupDataStruct)) && animation.Events.Count(e => ReferenceEquals(e.Group, group)) == 1,
                 "AUDIT_FAILED", "Inserted event differs from the requested type, sound, time, parameters, or group.");
             animation.Events.RemoveAt(animation.Events.Count - 1);
@@ -290,7 +291,7 @@ static class Patcher
                 var animation = item.tae.Animations.Single(a => a.ID == op.AnimationId);
                 var group = new TAE.EventGroup(128);
                 animation.EventGroups.Add(group);
-                animation.Events.Add(new TAE.Event(op.Start, op.End, 128, 0, Parameters(op.SoundId, item.tae.BigEndian), item.tae.BigEndian) { Group = group });
+                animation.Events.Add(new TAE.Event(op.Start, op.End, 129, 0, Parameters(op.SoundId, item.tae.BigEndian), item.tae.BigEndian) { Group = group });
             }
             byte[] changedBytes = item.tae.Write();
             VerifyTae(original, TAE.Read(changedBytes), item.file.Bytes, operations, paddingAdjustments);
@@ -308,7 +309,7 @@ static class Patcher
             schema_version = 1, source_sha256 = sourceHash, output_sha256 = Sha(outputBytes), source_bytes = sourceBytes.Length, output_bytes = outputBytes.Length,
             binder_member_count = source.Files.Count, changed_member_count = changedIndices.Count, inserted_event_count = plan.Operations.Count,
             source_noop_roundtrip_byte_identical = true, all_original_events_headers_groups_unchanged = true, all_other_binder_members_unchanged = true,
-            operations = plan.Operations.Select(o => new { tae_id = o.TaeId, animation_id = o.AnimationId, event_type = 128, sound_type = 1, sound_id = o.SoundId, start_seconds = o.Start, end_seconds = o.End, parameters_hex = Convert.ToHexString(Parameters(o.SoundId, false)).ToLowerInvariant() }),
+            operations = plan.Operations.Select(o => new { tae_id = o.TaeId, animation_id = o.AnimationId, event_type = 129, sound_type = 1, sound_id = o.SoundId, start_seconds = o.Start, end_seconds = o.End, parameters_hex = Convert.ToHexString(Parameters(o.SoundId, false)).ToLowerInvariant() }),
             changed_members = memberReports, alignment_padding_adjustments = paddingAdjustments
         };
         Publish(output, outputBytes, reportPath, JsonSerializer.SerializeToUtf8Bytes(report, JsonOptions), game, input, planPath);

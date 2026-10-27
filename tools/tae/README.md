@@ -40,7 +40,7 @@ The plan has exactly these fields:
 }
 ```
 
-Each operation appends one type-128 event with SoundType 1 and an independent
+Each operation appends one type-129 `Wwise_PlaySound_BySlot` event with SoundType 1 and an independent
 type-128 group. IDs must be positive int32 values; times must be finite and
 within 0–120 seconds, with positive duration at TAE float precision. The helper
 accepts 1–64 operations, at most 1 MiB of JSON, and at most 256 MiB of input.
@@ -61,9 +61,14 @@ array. An added 24-byte event header can add eight trailing zero bytes to the
 first original event's parameter storage. The audit permits only an eight-byte
 zero alignment difference at that position; it restores the original storage
 length before structural and byte-restoration checks. These cases appear in
-`alignment_padding_adjustments`. The inserted sound payload is exactly two
-little-endian int32 values (eight bytes); serialized storage may include zero
-padding. Report times reflect the actual float32 values written to TAE.
+`alignment_padding_adjustments`. The inserted sound payload is exactly 32 bytes,
+matching the native ultimate one-shot rows: SoundType 1, the registered SoundID,
+DummyPolyID and SlotID -1, PlaybackBehaviorType 0 (finish playback after the
+event window), and SoundIDOffsetType -1 (no weapon/hero sound ID adjustment).
+The remaining bytes match native one-shot settings. GroupType remains 128,
+as in the game's type-129 rows. Report times reflect the actual float32 values
+written to TAE. See [trigger compatibility investigation](../../docs/retimed-callout-trigger.md)
+for the evidence and outstanding game-side acceptance.
 
 Success returns 0 and prints `TAE_PATCH_OK ...`. Refusal returns 2 and prints one
 bounded diagnostic, `TAE_PATCH_ERROR CODE: explanation`, with no stack trace.

@@ -203,6 +203,22 @@ class TaeHelperTests(unittest.TestCase):
         audit = run("dotnet", FIXTURE, "audit", self.input, self.output, self.plan_file)
         self.assertEqual(0, audit.returncode, audit.stdout + audit.stderr)
 
+    def test_callouts_use_native_by_slot_one_shot_without_sound_id_offset(self):
+        result = self.invoke()
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+        report = json.loads(self.report.read_text(encoding="utf-8"))
+        # Native ultimate Play_c000207103 / 307110 / 907100 use this
+        # 32-byte BySlot format. A short event must not stop its voice.
+        import struct
+        for row in report["operations"]:
+            self.assertEqual(129, row["event_type"])
+            parameters = bytes.fromhex(row["parameters_hex"])
+            self.assertEqual(32, len(parameters))
+            self.assertEqual((1, row["sound_id"], -1, -1), struct.unpack_from("<iiii", parameters))
+            self.assertEqual(0, parameters[18], "play until sound ends")
+            self.assertEqual(255, parameters[28], "no weapon/hero sound ID offset")
+            self.assertEqual(bytes.fromhex("000000010100000000000000ff000000"), parameters[16:])
+
     def test_preparation_publishes_pinned_metadata_and_source_digest(self):
         script = ROOT / "scripts/Prepare-AnimationTools.ps1"
         self.assertTrue(script.exists(), "animation bootstrap script is missing")

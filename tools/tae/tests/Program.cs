@@ -58,8 +58,9 @@ if (args[0] == "audit")
             var row = animation.Events[^1];
             var group = animation.EventGroups[^1];
             var bytes = row.GetParameterBytes(changed.BigEndian);
-            Check(row.Type == 128 && row.Unk04 == 0 && bytes.Length == 16 && bytes.Skip(8).All(x => x == 0), "incorrect row type/size/padding");
+            Check(row.Type == 129 && row.Unk04 == 0 && bytes.Length == 32, "incorrect BySlot row type/size");
             Check(BinaryPrimitives.ReadInt32LittleEndian(bytes) == 1 && BinaryPrimitives.ReadInt32LittleEndian(bytes.AsSpan(4)) == op.GetProperty("sound_id").GetInt32(), "incorrect sound mapping");
+            Check(bytes.AsSpan(8).SequenceEqual(Convert.FromHexString("FFFFFFFFFFFFFFFF000000010100000000000000FF000000")), "incorrect one-shot, slot, or sound ID offset settings");
             Check(row.StartTime == (float)op.GetProperty("start_seconds").GetDouble() && row.EndTime == (float)op.GetProperty("end_seconds").GetDouble(), "incorrect timing");
             Check(row.Group == group && group.GroupType == 128 && !originalAnimation.EventGroups.Contains(group), "incorrect event group");
             animation.Events.RemoveAt(animation.Events.Count - 1);
