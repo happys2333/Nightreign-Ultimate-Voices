@@ -4,9 +4,15 @@
 
 这是已完成的**静态资源验证**；尚未完成游戏内一次施放一次播报、远端队友、距离、混装无缝联机和中断边界验证。不能把下列静态计数理解为已经通过这些游戏测试。
 
-## 事件与动作
+## 当前时机更新
 
-所有选中事件都是 TAE 类型 `129 / Wwise_PlaySound_BySlot`，`SoundType=1`（角色音效）、`SoundIDOffsetType=-1`（不依赖当前武器偏移）。事件名为 `Play_c` 加九位十进制 SoundID。对小写 ASCII 名称计算 Wwise FNV-1（先乘 `16777619` 再异或字节，初始值 `2166136261`），得到的编号均已在对应角色声库的 HIRC Event 对象中实证匹配；没有用数值外形推测不存在的事件。
+守护者现用新增 `Play_c900207000`（`a901:610000/615000`，0 秒），铁眼现用 `Play_c900307000`（`a902:620000`，0 秒），学者现用 `Play_c900907000`（`a908:680000`，3.3 秒）。三者在原动画追加 type-128 声音事件，原来的技能声音事件和原时刻保留。铁眼续接 `620005` 不重复添加。五个原喊声 Event 的局部调用移除见 [喊声隔离](voice-isolation.md)。
+
+以下表格记录原始定位证据，不表示上述三个角色仍使用旧播报时刻。
+
+## 原始事件与动作
+
+初版选中的原生事件都是 TAE 类型 `129 / Wwise_PlaySound_BySlot`，`SoundType=1`（角色音效）、`SoundIDOffsetType=-1`（不依赖当前武器偏移）。事件名为 `Play_c` 加九位十进制 SoundID。对小写 ASCII 名称计算 Wwise FNV-1（先乘 `16777619` 再异或字节，初始值 `2166136261`），得到的编号均已在对应角色声库的 HIRC Event 对象中实证匹配；没有用数值外形推测不存在的事件。
 
 表中时间是 TAE 的局部秒数。`a900:600000` 表示 `a900.tae` 中动画 ID `600000`；TAE 文件内部 ID 为 `2900`，不能直接拿内部 ID 当动画文件前缀。
 
@@ -29,7 +35,7 @@
 
 1. 从原始 `chr/c0000.behbnd.dcx` 以及当前 MMV 同名资源提取 `Behaviors/c0000.hkx`，使用 [HKLib 0.1.3-NR](https://github.com/The12thAvenger/HKLib/releases/tag/v0.1.3-NR) 解码。图中状态连接到 `CustomManualSelectorGenerator`，其 `animId`、`offsetType=11` 和下游 clip 明确指向上表动画。所有相关原生/MMV generator 对象编号和绑定都记录在配置的 `characters[].evidence` 中。例如原生 `PileBunkerStart` 经 `object2928` selector 连接 `object3973`（`animId=600000`）、`object3974/3975`（`animId=600100`）；无赖的 `RockWallAttackStart_CMSG` 是 `object2960`，`animId=640000`。
 2. 读取原始及 MMV `chr/c0000.anibnd.dcx` 中的全部 TAE，分别扫描 **11,606** 和 **13,994** 个动画记录。11 个选中 SoundID 的全部出现位置、开始/结束时间及参数原始字节在两者之间完全一致。它们均只出现在上表的绝招动画族，普通攻击、职业技能、待机和就绪提示中没有发现这些 SoundID。
-3. 每个扫描到的动画记录最多包含一个选中事件实例；追踪者 `107105` 和 `107106` 没有出现在同一动画记录中。并未叠加同一动作的蓄力声、发射声和后续声来触发多次播报。原始 Event Action 均保留。
+3. 每个扫描到的动画记录最多包含一个选中事件实例；追踪者 `107105` 和 `107106` 没有出现在同一动画记录中。并未叠加同一动作的蓄力声、发射声和后续声来触发多次播报。本次保留所有技能音效 Action，只从五个已审核的纯喊声 Event 中移除原 Play 调用；对应 Sound、Action 对象和媒体仍保留。
 4. 声库的 HIRC Event 编号、原始 Action 列表以及摘要已逐个验证。配置中的 `event_fingerprints` 是 **Event 载荷本身**的 SHA-256，摘要不包含 HIRC 类型、长度或对象编号外壳；Action 摘要同理。源声库摘要覆盖整个文件。
 
 ### 追踪者：提前释放与空中落地

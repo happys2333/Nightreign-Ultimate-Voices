@@ -94,3 +94,19 @@ class Resources:
             if path_hash(Path(name).name) in archive.entries:
                 return archive.read(Path(name).name),str(archive.header)
         raise FileNotFoundError(f"Cannot locate native bank {name}")
+
+    def read_animation_bundle(self) -> tuple[bytes,str]:
+        name = "chr/c0000.anibnd.dcx"
+        for package in reversed(self.packages):
+            target = package/name
+            if target.is_file():
+                return target.read_bytes(), str(target)
+        loose = self.game/name
+        if loose.is_file():
+            return loose.read_bytes(), str(loose)
+        header = self.game/"Data3.bhd"
+        if header.is_file():
+            key = (ROOT/"config/keys/data3.pem").read_bytes()
+            archive = Archive(header, key)
+            return archive.read(name), str(header)
+        raise FileNotFoundError("Cannot locate the effective player animation bundle chr/c0000.anibnd.dcx")

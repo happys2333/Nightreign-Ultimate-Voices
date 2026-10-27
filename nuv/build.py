@@ -30,6 +30,8 @@ def build_bank(source: bytes, mapping: dict, voices: dict, config_directory: Pat
     if expected_source and digest(source) != expected_source:
         raise ValueError("Unsupported source bank changed by another mod or game update; use the verified native hero bank")
     bank = Bank.parse(source)
+    baseline = Bank.parse(source)
+    original_objects = bank.objects_by_id
     characters = mapping["characters"]
     ids = [character["id"] for character in characters]
     if len(set(ids)) != len(ids):
@@ -42,6 +44,8 @@ def build_bank(source: bytes, mapping: dict, voices: dict, config_directory: Pat
               "characters":[], "added_media_bytes":0,
               "runtime":{"processes":0,"dlls":0,"polling":False,"network_messages":0}}
     used_events = set()
+    changed_events = set()
+    expected_actions = {}
     for character in characters:
         identifier = character["id"]
         entry = settings.get(identifier, {"enabled":False})
@@ -63,7 +67,7 @@ def build_bank(source: bytes, mapping: dict, voices: dict, config_directory: Pat
             raise ValueError(f"{identifier}: no verified native ultimate event")
         detail = {"id":identifier,"name_zh":character.get("name_zh",identifier),
                   "audio":str(audio_path.resolve()), "gain_db":gain,
-                  "normalize":normalize,"events":[]}
+                  "normalize":normalize,"events":[],"native_vocals":[]}
         for event_name in events:
             if not isinstance(event_name,str) or not event_name.startswith("Play_"):
                 raise ValueError("Expected a native Play_ event name")
@@ -71,26 +75,59 @@ def build_bank(source: bytes, mapping: dict, voices: dict, config_directory: Pat
             if eid in used_events:
                 raise ValueError(f"Duplicate event mapping: {event_name}")
             used_events.add(eid)
-            original = bank.objects_by_id.get(eid)
+            template_name = character.get("event_templates", {}).get(event_name)
+            if template_name is not None and (not isinstance(template_name, str) or not template_name.startswith("Play_")):
+                raise ValueError("Expected a native Play_ template event name")
+            source_name = template_name or event_name
+            template_id = event_hash(template_name) if template_name else None
+            original = original_objects.get(template_id if template_name else eid)
             if original is None or original.kind != 4:
-                raise ValueError(f"Native event missing: {event_name}")
-            expected = mapping.get("event_fingerprints", {}).get(event_name)
+                raise ValueError(f"Native event missing: {source_name}")
+            expected = mapping.get("event_fingerprints", {}).get(source_name)
             if expected and digest(original.payload) != expected:
-                raise ValueError(f"Native event changed by another mod: {event_name}")
+                raise ValueError(f"Native event changed by another mod: {source_name}")
             if report["added_media_bytes"] + len(wem) > MAX_ADDED_MEDIA:
                 raise ValueError("Added voice media exceeds the 16 MiB package budget")
-            result = bank.add_voice(eid, f"nuv-v1:{identifier}:{event_name}", wem)
+            result = bank.add_voice(eid, f"nuv-v1:{identifier}:{event_name}", wem,
+                                    template_event_id=template_id)
+            changed_events.add(eid)
+            expected_actions[eid] = bank.event_actions(eid)
             result["name"] = event_name
+            result["template_name"] = template_name
             result["original_event_sha256"] = digest(original.payload)
             detail["events"].append(result)
             report["added_media_bytes"] += len(wem)
+        for vocal in character.get("native_vocals", []):
+            if not expected_source:
+                raise ValueError("Native vocal removal requires a pinned source bank")
+            name = vocal["event"]
+            veid = event_hash(name)
+            original = original_objects.get(veid)
+            if original is None or original.kind != 4 or digest(original.payload) != vocal.get("event_sha256"):
+                raise ValueError(f"Native vocal event changed: {name}")
+            actions = vocal.get("actions", {})
+            if not isinstance(actions, dict) or not actions:
+                raise ValueError("Native vocal removal requires audited action fingerprints")
+            for aid, sha in actions.items():
+                action = original_objects.get(int(aid))
+                if action is None or digest(action.payload) != sha:
+                    raise ValueError(f"Native vocal action changed: {name}")
+            removed = bank.remove_play_actions(veid,[int(a) for a in actions])
+            removed["before_removal_action_ids"] = removed["original_action_ids"]
+            removed["original_action_ids"] = list(baseline.event_actions(veid))
+            removed["name"] = name
+            detail["native_vocals"].append(removed)
+            changed_events.add(veid)
+            expected_actions[veid] = bank.event_actions(veid)
         report["characters"].append(detail)
     output = bank.to_bytes()
     verified = Bank.parse(output)
-    baseline = Bank.parse(source)
     for original in baseline.objects:
-        if original.id not in used_events and verified.objects_by_id.get(original.id) != original:
+        if original.id not in changed_events and verified.objects_by_id.get(original.id) != original:
             raise ValueError("Generated bank changed an original HIRC object")
+    for eid, actions in expected_actions.items():
+        if verified.event_actions(eid) != actions:
+            raise ValueError("Generated bank changed an audited Event action list")
     for media_id in baseline.media_ids:
         if baseline.media_bytes(media_id) != verified.media_bytes(media_id):
             raise ValueError("Generated bank changed original audio media")
@@ -104,7 +141,7 @@ def build_bank(source: bytes, mapping: dict, voices: dict, config_directory: Pat
         raise ValueError("Generated bank changed its original bank header")
     for character in report["characters"]:
         for event in character["events"]:
-            if verified.event_actions(event["event_id"]) != tuple(event["original_action_ids"]) + (event["action_id"],):
+            if verified.event_actions(event["event_id"]) != expected_actions[event["event_id"]]:
                 raise ValueError("Generated bank action validation failed")
             if verified.media_bytes(event["media_id"]) != bank.media_bytes(event["media_id"]):
                 raise ValueError("Generated bank media validation failed")

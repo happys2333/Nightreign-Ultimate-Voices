@@ -92,6 +92,59 @@ class BankTests(unittest.TestCase):
             Bank.parse(patched).add_voice(10, "test", self.wem())
         self.assertEqual(bank.to_bytes(), patched)
 
+    def test_create_voice_only_event_preserves_all_originals_and_routes_from_template(self):
+        bank = Bank.parse(sample_bank())
+        original = bank.objects
+        result = bank.add_voice(3576982557, "guardian-start", self.wem(), template_event_id=10)
+        saved = Bank.parse(bank.to_bytes())
+        self.assertEqual(saved.event_actions(10), (20, 21))
+        self.assertEqual(saved.event_actions(3576982557), (result["action_id"],))
+        self.assertEqual([item for item in saved.objects if item.id in {o.id for o in original}], list(original))
+        self.assertEqual(len(saved.objects), len(original) + 3)
+        self.assertEqual(result["original_action_ids"], [])
+        self.assertEqual(result["template_event_id"], 10)
+        self.assertTrue(result["created_event"])
+        self.assertEqual(result["bus_id"], 1234)
+        self.assertEqual(saved.media_bytes(555), b"old!")
+        self.assertEqual(saved.media_bytes(result["media_id"]), self.wem())
+
+    def test_new_event_rejects_collisions_and_invalid_templates_atomically(self):
+        for target, template in ((10, 10), (30, 10), (555, 10), (999, 40), (999, 1000),
+                                 (True, 10), (0, 10), (2**32, 10)):
+            bank = Bank.parse(sample_bank())
+            before = bank.to_bytes()
+            with self.subTest(target=target, template=template), self.assertRaises(ValueError):
+                bank.add_voice(target, "new-event", self.wem(), template_event_id=template)
+            self.assertEqual(bank.to_bytes(), before)
+
+    def test_remove_play_action_changes_only_event_and_preserves_shared_audio_objects(self):
+        bank = Bank.parse(sample_bank())
+        originals = bank.objects_by_id
+        removed = bank.remove_play_actions(10, [20])
+        saved = Bank.parse(bank.to_bytes())
+        self.assertEqual(saved.event_actions(10), (21,))
+        self.assertEqual(removed["removed_action_ids"], [20])
+        self.assertEqual(removed["original_action_ids"], [20,21])
+        for oid, original in originals.items():
+            if oid != 10:
+                self.assertEqual(saved.objects_by_id[oid], original)
+        self.assertEqual(saved.media_bytes(555), b"old!")
+
+    def test_remove_play_action_rejects_unexpected_actions_without_mutation(self):
+        for actions in ([], [21], [999], [20,20], [True]):
+            bank = Bank.parse(sample_bank())
+            before = bank.to_bytes()
+            with self.subTest(actions=actions), self.assertRaises(ValueError):
+                bank.remove_play_actions(10, actions)
+            self.assertEqual(bank.to_bytes(), before)
+
+    def test_voice_only_original_event_can_be_empty_without_deleting_its_media(self):
+        bank = Bank.parse(sample_bank(event_actions=(20,)))
+        bank.remove_play_actions(10, [20])
+        saved = Bank.parse(bank.to_bytes())
+        self.assertEqual(saved.event_actions(10), ())
+        self.assertEqual(saved.media_bytes(555), b"old!")
+
     def test_rejects_truncation_duplicate_ids_bad_chunk_sizes_and_bad_indexes(self):
         original = sample_bank()
         corruptions = [original[:-1], original + b"garbage", original + chunk(b"BKHD", bytes(20))]

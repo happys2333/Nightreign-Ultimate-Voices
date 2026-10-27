@@ -62,6 +62,49 @@ class BuildTests(unittest.TestCase):
                     self.assertEqual(sample, 1000)
                 self.assertEqual(detail["normalize"], normalized)
 
+    def test_new_animation_event_uses_verified_template_without_changing_original(self):
+        from nuv.bank import Bank
+        from nuv.build import build_bank, event_hash
+        mapping = deepcopy(self.mapping)
+        mapping["characters"][0]["events"] = ["Play_c900207000"]
+        mapping["characters"][0]["event_templates"] = {"Play_c900207000":"Play_c000107105"}
+        old_id = event_hash("Play_c000107105")
+        new_id = event_hash("Play_c900207000")
+        source = self.bank()
+        mapping["event_fingerprints"] = {"Play_c000107105":hashlib.sha256(Bank.parse(source).objects_by_id[old_id].payload).hexdigest()}
+        built, report = build_bank(source, mapping, self.voices, self.root)
+        saved = Bank.parse(built)
+        event = report["characters"][0]["events"][0]
+        self.assertEqual(saved.event_actions(new_id), (event["action_id"],))
+        for original in Bank.parse(source).objects:
+            self.assertEqual(saved.objects_by_id[original.id], original)
+        self.assertEqual(event["template_name"], "Play_c000107105")
+        self.assertTrue(event["created_event"])
+        mapping["event_fingerprints"]["Play_c000107105"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "changed"):
+            build_bank(source, mapping, self.voices, self.root)
+
+    def test_audited_native_vocal_action_is_removed_before_appending_callout(self):
+        from nuv.bank import Bank
+        from nuv.build import build_bank, digest, event_hash
+        source = self.bank()
+        originals = Bank.parse(source).objects_by_id
+        eid = event_hash("Play_c000107105")
+        mapping = deepcopy(self.mapping)
+        mapping["banks"] = {mapping["bank"]:digest(source)}
+        mapping["characters"][0]["native_vocals"] = [{"event":"Play_c000107105",
+            "event_sha256":digest(originals[eid].payload), "actions":{"20":digest(originals[20].payload)}}]
+        built, report = build_bank(source, mapping, self.voices, self.root)
+        event = report["characters"][0]["events"][0]
+        parsed = Bank.parse(built)
+        self.assertEqual(parsed.event_actions(eid), (21,event["action_id"]))
+        self.assertEqual(parsed.objects_by_id[20], originals[20])
+        self.assertEqual(parsed.media_bytes(555), b"old!")
+        self.assertEqual(report["characters"][0]["native_vocals"][0]["removed_action_ids"], [20])
+        mapping["characters"][0]["native_vocals"][0]["actions"]["20"] = "0"*64
+        with self.assertRaisesRegex(ValueError,"vocal.*changed"):
+            build_bank(source, mapping, self.voices, self.root)
+
     def test_build_rejects_non_boolean_normalization(self):
         from nuv.build import build_bank
         for value in (1, "yes", None):

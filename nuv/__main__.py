@@ -49,6 +49,14 @@ def run_build(args) -> dict:
             grouped.setdefault(character["bank"],[]).append(character)
     if not grouped:
         raise ValueError("Enable at least one character in the voices configuration")
+    enabled_ids = {character["id"] for characters in grouped.values() for character in characters}
+    if any(character.get("animation_triggers") for characters in grouped.values() for character in characters):
+        from .animation import build_animation
+        animation_source, animation_origin = resources.read_animation_bundle()
+        animation_output, animation_report = build_animation(animation_source,mapping,enabled_ids,game)
+        animation_report["source_path"] = animation_origin
+        report["animation"] = animation_report
+        banks["chr/c0000.anibnd.dcx"] = animation_output
     for bank_name,characters in grouped.items():
         source,origin=resources.read_bank(bank_name)
         partial_map={**mapping,"bank":bank_name,"characters":characters}

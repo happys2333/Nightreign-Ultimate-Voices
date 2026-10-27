@@ -251,13 +251,40 @@ class Bank:
             raise ValueError("event must resolve to one unambiguous output bus")
         return buses.pop()
 
+    def remove_play_actions(self, event_id: int, action_ids: list[int]) -> dict:
+        """Detach audited vocal Play actions from this Event only.
+
+        Sound nodes, shared media and all other callers stay intact. This API
+        does not identify vocals; the builder must pin the audited bank/Event.
+        """
+        if self.version not in SUPPORTED_PATCH_VERSIONS:
+            raise ValueError("removing actions requires bank version v135")
+        actions = self.event_actions(event_id)
+        if (not action_ids or any(isinstance(a, bool) or not isinstance(a, int) for a in action_ids)
+                or len(set(action_ids)) != len(action_ids) or not set(action_ids).issubset(actions)):
+            raise ValueError("expected unique original Play action IDs")
+        for aid in action_ids:
+            obj = self._lookup.get(aid)
+            if obj is None or obj.kind != 3 or len(obj.payload) < 6 or struct.unpack_from("<H",obj.payload)[0] != 0x0403:
+                raise ValueError("only verified game-object Play actions may be detached")
+        retained = tuple(a for a in actions if a not in action_ids)
+        event = HircObject(4,event_id,_pack_var(len(retained)) + b"".join(struct.pack("<I",a) for a in retained))
+        objects = [event if obj.id == event_id else obj for obj in self._objects]
+        self._objects = objects
+        self._lookup = {obj.id:obj for obj in objects}
+        self._dirty = True
+        return {"event_id":event_id,"original_action_ids":list(actions),
+                "removed_action_ids":list(action_ids),"retained_action_ids":list(retained)}
+
     def add_voice(self, event_id: int, namespace: str, wem: bytes,
-                  volume_db: float = 0.0):
-        """Append one Play action to an existing Event; retain every prior action.
+                  volume_db: float = 0.0, *, template_event_id: int | None = None):
+        """Add a Play action, optionally in a new voice-only Event.
 
         Object/media IDs are deterministic per namespace. A collision or repeat
         fails before mutating the bank. New audio routes directly to the Event's
         existing bus in 2D and has no loops, states, randomization or RTPCs.
+        A new Event borrows only routing from its template; the template and
+        every other existing object remain byte-identical.
         """
         if self.version not in SUPPORTED_PATCH_VERSIONS:
             raise ValueError(f"unsupported bank version {self.version}; patching requires v135")
@@ -269,10 +296,19 @@ class Bank:
                 or not math.isfinite(volume_db) or not -60 <= volume_db <= 12):
             raise ValueError("volume must be finite and between -60 and 12 dB")
         validate_pcm_wem(wem)
-        actions = self.event_actions(event_id)
-        bus_id = self._routing_bus(event_id)
-        ids = {}
+        created = template_event_id is not None
         occupied = set(self._lookup) | self.media_ids
+        if created:
+            if (isinstance(event_id, bool) or not isinstance(event_id, int)
+                    or not 0 < event_id <= 0xFFFFFFFF or event_id in occupied):
+                raise ValueError("new event ID is invalid or already occupied")
+            self.event_actions(template_event_id)
+            actions = ()
+        else:
+            actions = self.event_actions(event_id)
+        bus_id = self._routing_bus(template_event_id if created else event_id)
+        ids = {}
+        occupied.add(event_id)
         for role in ("sound", "action", "media"):
             # Wwise's unnamed objects/media use 30-bit GUID-derived ShortIDs.
             # Named Events/buses retain their original full-width FNV IDs.
@@ -313,8 +349,9 @@ class Bank:
         sizes = [(part.tag, len(part.payload)) for part in chunks]
         sizes[known[b"DATA"]] = (b"DATA", data_offset + len(wem))
         sizes[known[b"DIDX"]] = (b"DIDX", sizes[known[b"DIDX"]][1] + 12)
-        old_event = self._lookup[event_id]
-        hirc_growth = 18 + len(sound.payload) + len(action.payload) + len(event.payload) - len(old_event.payload)
+        old_event = self._lookup.get(event_id)
+        event_growth = 9 + len(event.payload) if created else len(event.payload) - len(old_event.payload)
+        hirc_growth = 18 + len(sound.payload) + len(action.payload) + event_growth
         sizes[known[b"HIRC"]] = (b"HIRC", sizes[known[b"HIRC"]][1] + hirc_growth)
         # Account for prior patches whose HIRC is stored as objects until save.
         if self._dirty:
@@ -330,15 +367,19 @@ class Bank:
             struct.pack("<III", mid, *media[mid]) for mid in sorted(media)))
         # Insert dependencies ahead of Events; leave original objects in order.
         objects = list(self._objects)
-        event_index = next(i for i, item in enumerate(objects) if item.id == event_id)
-        objects[event_index] = event
-        objects[event_index:event_index] = [sound, action]
+        if created:
+            objects.extend((sound, action, event))
+        else:
+            event_index = next(i for i, item in enumerate(objects) if item.id == event_id)
+            objects[event_index] = event
+            objects[event_index:event_index] = [sound, action]
         self._chunks, self._known, self._objects, self._media = chunks, known, objects, media
         self._lookup = {item.id: item for item in objects}
         self._dirty = True
         return {"event_id": event_id, "sound_id": ids["sound"], "action_id": ids["action"],
                 "media_id": ids["media"], "bus_id": bus_id,
-                "original_action_ids": list(actions), "wem_bytes": len(wem)}
+                "original_action_ids": list(actions), "wem_bytes": len(wem),
+                "created_event": created, "template_event_id": template_event_id}
 
     def to_bytes(self):
         chunks = list(self._chunks)
