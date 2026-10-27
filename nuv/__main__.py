@@ -44,6 +44,7 @@ def run_build(args) -> dict:
             "runtime":{"processes":0,"dlls":0,"polling":False,"network_messages":0},
             "validation":{"static_bank_structure":True,"in_game_playback":False,"mixed_install_coop":False,"remote_distance":False,"fps_benchmark":False}}
     grouped={}
+    registrations=[]
     for character in mapping["characters"]:
         if voices.get("characters",{}).get(character["id"],{}).get("enabled",True) and character["id"] in voices.get("characters",{}):
             grouped.setdefault(character["bank"],[]).append(character)
@@ -74,6 +75,9 @@ def run_build(args) -> dict:
         parsed=Bank.parse(built)
         for character_detail in detail["characters"]:
             for event in character_detail["events"]:
+                if event.get("created_event"):
+                    registrations.append({"bank_id":parsed.bank_id,"event_name":event["name"],
+                                          "template_name":event["template_name"]})
                 media_id=event["media_id"]
                 resource=f"sd/wem/{str(media_id)[:2]}/{media_id}.wem"
                 media=parsed.media_bytes(media_id)
@@ -84,6 +88,23 @@ def run_build(args) -> dict:
                 banks[resource]=media
                 report["loose_media_files"]+=1
                 report["loose_media_bytes"]+=len(media)
+    if registrations:
+        from .registry import SBI,EIB,register_events
+        from .build import digest
+        metadata={}
+        origins={}
+        for resource in (SBI,EIB):
+            source,origin=resources.read_sound_metadata(resource)
+            expected=mapping.get("event_registry",{}).get(resource)
+            if not expected or digest(source)!=expected:
+                raise ValueError(f"Game sound catalog changed or is unsupported: {resource}; refusing to overwrite it")
+            metadata[resource]=source
+            origins[resource]=origin
+        patched,registration_report=register_events(metadata[SBI],metadata[EIB],registrations)
+        banks.update(patched)
+        registration_report["source_paths"]=origins
+        report["event_registration"]=registration_report
+        report["validation"]["static_game_event_routes"]=True
     report["build_seconds"]=round(time.perf_counter()-started,3)
     write_package(output,banks,profile_text,report)
     return {"output":str(output),"profile":str(output/"UltimateVoices.me3"),"banks":len(report["banks"]),

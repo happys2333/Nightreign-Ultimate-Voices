@@ -110,3 +110,18 @@ class Resources:
             archive = Archive(header, key)
             return archive.read(name), str(header)
         raise FileNotFoundError("Cannot locate the effective player animation bundle chr/c0000.anibnd.dcx")
+
+    def read_sound_metadata(self,name: str) -> tuple[bytes,str]:
+        if name not in ("sound/soundbanksinfo.mobnkinfo","sound/eventinfo.eib"):
+            raise ValueError("Only the two verified sound catalogs may be read")
+        for package in reversed(self.packages):
+            target=package/name
+            if target.is_file():
+                return target.read_bytes(),str(target)
+        loose=self.game/name
+        if loose.is_file():
+            return loose.read_bytes(),str(loose)
+        if not hasattr(self,"_sound_metadata_archive"):
+            key=(ROOT/"config/keys/data0.pem").read_bytes()
+            self._sound_metadata_archive=Archive(self.game/"Data0.bhd",key)
+        return self._sound_metadata_archive.read(name),str(self._sound_metadata_archive.header)

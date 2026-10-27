@@ -91,3 +91,30 @@ class CliTests(unittest.TestCase):
         self.assertEqual((output/"mod/chr/c0000.anibnd.dcx").read_bytes(), b"patched binder")
         report = json.loads((output/"build-report.json").read_text(encoding="utf-8"))
         self.assertEqual(report["animation"]["source_path"], "effective mod")
+
+    def test_new_voice_events_are_registered_in_both_game_catalogs(self):
+        from types import SimpleNamespace
+        from unittest.mock import patch
+        from test_build import BuildTests
+        from test_registry import catalogs,SBI,EIB
+        from nuv.__main__ import run_build
+        from nuv.build import digest
+        fixture = BuildTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        mapping = fixture.mapping
+        character = mapping["characters"][0]
+        character.update(bank="sd/hero01.bnk",events=["Play_c900207000"],
+                         event_templates={"Play_c900207000":"Play_c000107105"})
+        sbi,eib = catalogs("Play_c000107105",100)
+        metadata = {SBI:sbi,EIB:eib}
+        mapping["event_registry"] = {name:digest(value) for name,value in metadata.items()}
+        output = fixture.root/"out"
+        args = SimpleNamespace(game_dir=None,voices=str(fixture.root/"voices.json"),base_profile=None,output=str(output))
+        with patch("nuv.__main__.find_game",return_value=fixture.root/"game"), \
+             patch("nuv.__main__.game_version",return_value="1.3.3.0"), \
+             patch("nuv.__main__._json",side_effect=[mapping,fixture.voices]), \
+             patch("nuv.__main__.Resources") as resources:
+            resources.return_value.read_bank.return_value = (fixture.bank(),"fixture")
+            resources.return_value.read_sound_metadata.side_effect = lambda name:(metadata[name],"fixture")
+            run_build(args)
+        self.assertTrue((output/"mod"/SBI).is_file(),"new bank Event alone is invisible to the game's SBI lookup")
+        self.assertTrue((output/"mod"/EIB).is_file(),"new TAE sound must be known to the game's event catalog")

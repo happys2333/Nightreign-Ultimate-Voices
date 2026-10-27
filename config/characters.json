@@ -1154,5 +1154,9 @@
       "610f553520e5127da7366fe6c619683acac11b7aee6f6b2450b8186af0b573e1": "native 1.3.3.0",
       "0eafca3631ddbbf3b2ec67edb49068bdc4ebcf5e4d48b2b1720a0a1c2921be69": "local MMVWeaponsMerge"
     }
+  },
+  "event_registry": {
+    "sound/soundbanksinfo.mobnkinfo": "264c0d0eae4985a31cd59fff63456cdd21422d191ad93968e70c7b0dbc54ca32",
+    "sound/eventinfo.eib": "be3a44284d62cf92ddbbd27df18ef13f411b414173fed61e30cdd476688002d3"
   }
 }
