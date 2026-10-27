@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "overwatch_build": "2.25.0.1.154504N",
+  "language": "zhCN",
+  "extraction": "pinned_original_wem",
+  "gain_db": -6,
+  "roles": [
+    {
+      "nightreign": "wylder",
+      "hero": "Anran",
+      "hero_zh": "安燃",
+      "hero_id": "4DD",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "4DD",
+        "audience": "enemy",
+        "resource_guid": "00000006AB26.0B2",
+        "relative_path": "Pinned/00000006AB26.0B2.wem",
+        "sha256": "69c7d3cd57fb733fae2d733b422c0f6802ca7ea43be8dfed3012f52bea85e868",
+        "subtitle": "火羽焚天！",
+        "stimulus_guid": "000000001959.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "27d53ba516b291f1d9d10e03cbc027de408abe01114d9cd730a4a3b54ee1ef6e"
+      }
+    },
+    {
+      "nightreign": "ironeye",
+      "hero": "Hanzo",
+      "hero_zh": "半藏",
+      "hero_id": "5",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "5",
+        "audience": "enemy",
+        "resource_guid": "00000000A566.0B2",
+        "relative_path": "Pinned/00000000A566.0B2.wem",
+        "sha256": "f652c1880a409a15400c565f0b27f6ce29ccb2c68b97692e3d9b486abee3e7ae",
+        "subtitle": "（日语）：让巨龙吞噬我的敌人！",
+        "stimulus_guid": "0000000000A1.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "ed336a95fae9658b90c1006009fc7e8d817c50900e9a1361cee54f4cf426fab3"
+      }
+    },
+    {
+      "nightreign": "raider",
+      "hero": "Reinhardt",
+      "hero_zh": "莱因哈特",
+      "hero_id": "7",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "7",
+        "audience": "enemy",
+        "resource_guid": "00000000A721.0B2",
+        "relative_path": "Pinned/00000000A721.0B2.wem",
+        "sha256": "e3bd0a14b2f03ee984e273871338c1388956d8e218a4a4a693530cf644fab6ee",
+        "subtitle": "吃我一锤！",
+        "stimulus_guid": "000000000093.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "0b062c67c287a0a28bbe916d738e6bb5c1c3bc7010f6d3a835d6db64d7492d85"
+      }
+    },
+    {
+      "nightreign": "recluse",
+      "hero": "Doctrine",
+      "hero_zh": "血律",
+      "hero_id": "570",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "570",
+        "audience": "enemy",
+        "resource_guid": "00000006D10F.0B2",
+        "relative_path": "Pinned/00000006D10F.0B2.wem",
+        "sha256": "b76fa10635ac63147d0f0d1a177ad35a1d246d792ee22998bcf81e54e0a414ef",
+        "subtitle": "（绍纳语）：命运由我驱使！",
+        "stimulus_guid": "000000001A3E.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "379ecb5afbc0bb7f5b6b7af0a568fdf08b76120e84a42473cef860aab42c6f5f"
+      }
+    },
+    {
+      "nightreign": "revenant",
+      "hero": "Ana",
+      "hero_zh": "安娜",
+      "hero_id": "13B",
+      "audience": "friendly",
+      "clip": {
+        "hero_id": "13B",
+        "audience": "friendly",
+        "resource_guid": "00000002B8FA.0B2",
+        "relative_path": "Pinned/00000002B8FA.0B2.wem",
+        "sha256": "faa80967b620f28b4348c018e9d4ff102cda5d388910d21a1c49e89675aa4d90",
+        "subtitle": "纳米激素已注入！",
+        "stimulus_guid": "0000000005F6.078",
+        "stimulus_audience_enum": 0,
+        "source_audience": "friendly",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "fe09219cbba586a0f059ae46e9137fd54d3fc7ad82d2bc99b83cfa55e6e6957e"
+      }
+    },
+    {
+      "nightreign": "executor",
+      "hero": "Winston",
+      "hero_zh": "温斯顿",
+      "hero_id": "9",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "9",
+        "audience": "enemy",
+        "source_audience": "shared",
+        "resource_guid": "0000002A601B.03F",
+        "relative_path": "Pinned/0000002A601B.03F.wem",
+        "sha256": "acd037a3f6b6e7708a821ee46406b90d7f7bd99742d32b3a3c5fbc3c82e9a744",
+        "subtitle": null,
+        "selection_evidence": {
+          "graph": "000000000109.01B",
+          "effect": "000000000211.00D",
+          "event_id": 3386485218,
+          "sound_id": 512630930,
+          "source_id": 148169123,
+          "language_specific": false
+        },
+        "selection_note": "Primal Rage activation main SFX layer, shared by enemies and allies. No distinct enemy-only speech; auxiliary transformation layer omitted.",
+        "inspected_ogg_sha256": "cfbf75e57374a0c65471054901e9e24b23754f81b2e0e2c2da4560ebea9685d5"
+      }
+    },
+    {
+      "nightreign": "undertaker",
+      "hero": "Shion",
+      "hero_zh": "死怨",
+      "hero_id": "52C",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "52C",
+        "audience": "enemy",
+        "resource_guid": "00000006C434.0B2",
+        "relative_path": "Pinned/00000006C434.0B2.wem",
+        "sha256": "53e934bb8491cec1ab2ec22e0293b72e7eb2b9ec7800f3cdcf363ad00c0a959f",
+        "subtitle": "（日语）：看看我变成了什么样子！",
+        "stimulus_guid": "0000000019DE.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "c06cf5489d37a6e178cbee046415b50b8f4dd0d2d21676d62bfa11fe187a6154"
+      }
+    },
+    {
+      "nightreign": "scholar",
+      "hero": "Sombra",
+      "hero_zh": "黑影",
+      "hero_id": "12E",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "12E",
+        "audience": "enemy",
+        "resource_guid": "000000030559.0B2",
+        "relative_path": "Pinned/000000030559.0B2.wem",
+        "sha256": "a808eede49561cd30bbb9beb8436c4df11c226d1eda1d23a1bd44da40785be94",
+        "subtitle": "（西班牙语）：关灯了！",
+        "stimulus_guid": "000000000699.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "cbe42898ec161fd9390a78331478ff10e77c7fe09ecf70cc7d61cd4e2f2e2158"
+      }
+    }
+  ],
+  "toolchain": {
+    "owlib_revision": "546efa19516d7df7ba138802d221c73ad886df28",
+    "tactlib_revision": "9b333b84211a4b95928e01be303b5ed27729c0aa",
+    "tactlib_source": "https://github.com/overtools/TACTLib/pull/40",
+    "offline_keyring_patch": true
+  },
+  "notes": [
+    "Anran normal offensive ultimate selects 火羽焚天; alternate resurrection 朱雀展翅 is not used.",
+    "Ana selects general friendly-team line 纳米激素已注入; recipient-only 你被强化了！快上！ is a separate listener context.",
+    "Winston uses the native shared primal activation SFX main layer; no separate enemy-only speech was present.",
+    "Guardian and Duchess are not included in this user-specified OW preset."
+  ]
+}

@@ -14,7 +14,7 @@ class CliTests(unittest.TestCase):
     def test_help_exposes_build_inspect_verify_and_uninstall(self):
         result=self.run_cli("--help")
         self.assertEqual(result.returncode,0,result.stderr)
-        for command in ("build","inspect","verify","uninstall"):
+        for command in ("build","inspect","verify","uninstall","ow-extract","ow-import"):
             self.assertIn(command,result.stdout)
 
     def test_missing_game_exits_cleanly_and_creates_no_output(self):

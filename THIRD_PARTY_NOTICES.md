@@ -11,3 +11,5 @@ The project is GPL-3.0, as provided by LICENSE. Windows SAPI generated the inclu
 - [Mod Engine 3](https://github.com/garyttierney/me3) remains the user's separate mod loader. Existing Seamless Co-op and other mods remain separately installed and are not redistributed here.
 
 Local extracted game resources, third-party binaries, inspector projects and independent verification dumps are excluded from Git. Generated hero banks are derived from the user's local installation.
+
+The local OW importer uses [OWLib](https://github.com/overtools/OWLib) and [TACTLib](https://github.com/overtools/TACTLib), with exact source revisions and the unmerged build-support patch recorded in `docs/overwatch.md`. `scripts/Prepare-OverwatchTools.ps1` builds these locally with one explicit offline-keyring change and this project's pinned-audio extension. The vgmstream r2168 decoder is prepared separately and runs only before game startup. No Overwatch speech, SFX, game archives or extracted voice sets are committed or redistributed with this source repository; each user extracts from their own local installation.

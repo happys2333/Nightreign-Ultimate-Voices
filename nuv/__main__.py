@@ -81,6 +81,20 @@ def main(argv=None) -> int:
     verify.add_argument("output",nargs="?",default=str(ROOT/"dist/UltimateVoices"))
     uninstall=sub.add_parser("uninstall",help="仅删除本工具完整拥有的输出，拒绝删除用户文件")
     uninstall.add_argument("output",nargs="?",default=str(ROOT/"dist/UltimateVoices"))
+    extract=sub.add_parser("ow-extract",help="使用 DataTool 离线提取指定 OW 英雄语音")
+    extract.add_argument("--overwatch-dir",required=True,help="本机守望先锋安装根目录")
+    extract.add_argument("--datatool",default=str(ROOT/".tools/owlib-source/DataTool/bin/Release/net10.0/DataTool.exe"))
+    extract.add_argument("--manifest",default=str(ROOT/"config/overwatch.json"))
+    extract.add_argument("--output",default=str(ROOT/"local/overwatch/pinned"))
+    importing=sub.add_parser("ow-import",help="导入审核后的 OW 敌我大招语音并可选构建原生声库")
+    importing.add_argument("--source",default=str(ROOT/"local/overwatch/pinned"))
+    importing.add_argument("--manifest",default=str(ROOT/"config/overwatch.json"))
+    importing.add_argument("--decoder",default=str(ROOT/".tools/vgmstream/vgmstream-cli.exe"))
+    importing.add_argument("--output",default=str(ROOT/"local/overwatch/imported"))
+    importing.add_argument("--build",action="store_true",help="导入成功后构建 Nightreign 模组")
+    importing.add_argument("--game-dir",help="Nightreign Game 目录；省略则检测 Steam")
+    importing.add_argument("--base-profile",help="原有无缝联机 .me3 配置")
+    importing.add_argument("--package-output",default=str(ROOT/"dist/UltimateVoices-Overwatch"))
     args=parser.parse_args(argv)
     try:
         if args.command=="inspect":
@@ -90,6 +104,16 @@ def main(argv=None) -> int:
             result=run_build(args)
         elif args.command=="verify":
             result=verify_package(Path(args.output))
+        elif args.command=="ow-extract":
+            from .overwatch import extract_heroes
+            result=extract_heroes(Path(args.overwatch_dir),Path(args.datatool),Path(args.output),_json(Path(args.manifest)))
+        elif args.command=="ow-import":
+            from .overwatch import import_voices,vgmstream_decoder
+            decode,identity=vgmstream_decoder(Path(args.decoder))
+            result=import_voices(Path(args.source),_json(Path(args.manifest)),Path(args.output),decoder=decode,decoder_identity=identity)
+            if args.build:
+                result["package"]=run_build(argparse.Namespace(game_dir=args.game_dir,base_profile=args.base_profile,
+                    voices=result["config"],output=args.package_output))
         else:
             remove_package(Path(args.output))
             result={"removed":str(Path(args.output).resolve())}
