@@ -1,0 +1,1055 @@
+{
+  "game_version": "1.3.3.0",
+  "validation_status": "native_and_mmv_static_verified_gameplay_pending",
+  "banks": {
+    "sd/hero01.bnk": "6617fdad8cc4eb10965988520b1c45023d6bf4f7af1d6d91bf6de1418dd45e19",
+    "sd/hero02.bnk": "1ba0800d18c10648a2e1757ae5f1e725f02692bf0472c78e10e2faca4a75c077",
+    "sd/hero03.bnk": "d03986c30871a165e3d4472491b460a9540caa46b80d834f6bfd5ea2214147ba",
+    "sd/hero04.bnk": "79f3f5f3a38f22887aa0ee3baba2341528ce0f0e6fae4558342a39691aa81ac3",
+    "sd/hero05.bnk": "0e047ac6e92362d10af22d55c6206a3981a77578ee471aa5a7ece76a2368f7bc",
+    "sd/hero06.bnk": "a82d5f2ef78f40df3d11fecd79aa78cdcd9fa1943940aaa3c00dc15ea1f3a28a",
+    "sd/hero07.bnk": "e63113cd49a8dd6b52e89d02ac7db119c014b26397f34a2d401d7a93b41aeffa",
+    "sd/hero08.bnk": "253d94b21c98f03874a314fc5fb62f86a6971247c83389b18442210f2b6e50cc",
+    "sd/hero09.bnk": "23b5e6d6a66e87de968d6d15deeb0e34d8c8091478115a39dc4af39655ea7b39",
+    "sd/hero10.bnk": "e0716bea72ef79918803661fa93a724c75649207e33bff0b82be13cebca4ac66"
+  },
+  "characters": [
+    {
+      "id": "wylder",
+      "name_zh": "追踪者",
+      "bank": "sd/hero01.bnk",
+      "events": [
+        "Play_c000107105",
+        "Play_c000107106"
+      ],
+      "ultimate_behavior": "PileBunker",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2929",
+              "name": "PileBunkerCancelEarly_CMSG",
+              "animation_id": 600005,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2930",
+              "name": "AirPileBunkerStart_CMSG",
+              "animation_id": 605000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2931",
+              "name": "AirPileBunkerLand_CMSG",
+              "animation_id": 605200,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3973",
+              "name": "PileBunkerStart_CMSG",
+              "animation_id": 600000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3974",
+              "name": "PileBunkerStart_FromFookShot_CMSG",
+              "animation_id": 600100,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3975",
+              "name": "PileBunkerStart_FromDash_CMSG",
+              "animation_id": 600100,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3026",
+              "name": "PileBunkerCancelEarly_CMSG",
+              "animation_id": 600005,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3027",
+              "name": "AirPileBunkerStart_CMSG",
+              "animation_id": 605000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3028",
+              "name": "AirPileBunkerLand_CMSG",
+              "animation_id": 605200,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4083",
+              "name": "PileBunkerStart_CMSG",
+              "animation_id": 600000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4084",
+              "name": "PileBunkerStart_FromFookShot_CMSG",
+              "animation_id": 600100,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4085",
+              "name": "PileBunkerStart_FromDash_CMSG",
+              "animation_id": 600100,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guardian",
+      "name_zh": "守护者",
+      "bank": "sd/hero02.bnk",
+      "events": [
+        "Play_c000207103"
+      ],
+      "ultimate_behavior": "DragoonJump",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2936",
+              "name": "AirDragoonJumpLoop_CMSG",
+              "animation_id": 615100,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2938",
+              "name": "DragoonJumpLand_CMSG",
+              "animation_id": 610010,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2939",
+              "name": "DragoonJumpLandLoop_CMSG",
+              "animation_id": 610011,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2940",
+              "name": "DragoonJumpLandEnd_CMSG",
+              "animation_id": 610012,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2941",
+              "name": "AirDragoonJumpStart_CMSG",
+              "animation_id": 615000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object8157",
+              "name": "DragoonJumpStart_CMSG",
+              "animation_id": 610000,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3033",
+              "name": "AirDragoonJumpLoop_CMSG",
+              "animation_id": 615100,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3035",
+              "name": "DragoonJumpLand_CMSG",
+              "animation_id": 610010,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3036",
+              "name": "DragoonJumpLandLoop_CMSG",
+              "animation_id": 610011,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3037",
+              "name": "DragoonJumpLandEnd_CMSG",
+              "animation_id": 610012,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3038",
+              "name": "AirDragoonJumpStart_CMSG",
+              "animation_id": 615000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object9134",
+              "name": "DragoonJumpStart_CMSG",
+              "animation_id": 610000,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ironeye",
+      "name_zh": "铁眼",
+      "bank": "sd/hero03.bnk",
+      "events": [
+        "Play_c000307110"
+      ],
+      "ultimate_behavior": "LongBowSnipe",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2948",
+              "name": "LongBowSnipeStart_CMSG",
+              "animation_id": 620000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2949",
+              "name": "LongBowSnipeCancelEarly_CMSG",
+              "animation_id": 620005,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3045",
+              "name": "LongBowSnipeStart_CMSG",
+              "animation_id": 620000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3046",
+              "name": "LongBowSnipeCancelEarly_CMSG",
+              "animation_id": 620005,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "duchess",
+      "name_zh": "女爵",
+      "bank": "sd/hero04.bnk",
+      "events": [
+        "Play_c000407100"
+      ],
+      "ultimate_behavior": "AllHide",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2952",
+              "name": "AllHideStart_CMSG",
+              "animation_id": 630000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2953",
+              "name": "AirAllHideStart_CMSG",
+              "animation_id": 635000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2954",
+              "name": "AirAllHideLand_CMSG",
+              "animation_id": 630000,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3049",
+              "name": "AllHideStart_CMSG",
+              "animation_id": 630000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3050",
+              "name": "AirAllHideStart_CMSG",
+              "animation_id": 635000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3051",
+              "name": "AirAllHideLand_CMSG",
+              "animation_id": 630000,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "raider",
+      "name_zh": "无赖",
+      "bank": "sd/hero05.bnk",
+      "events": [
+        "Play_c000508100"
+      ],
+      "ultimate_behavior": "RockWallAttack",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2960",
+              "name": "RockWallAttackStart_CMSG",
+              "animation_id": 640000,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3057",
+              "name": "RockWallAttackStart_CMSG",
+              "animation_id": 640000,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "revenant",
+      "name_zh": "复仇者",
+      "bank": "sd/hero06.bnk",
+      "events": [
+        "Play_c000607102"
+      ],
+      "ultimate_behavior": "LivingDead",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2958",
+              "name": "LivingDeadStart_CMSG",
+              "animation_id": 650000,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3055",
+              "name": "LivingDeadStart_CMSG",
+              "animation_id": 650000,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recluse",
+      "name_zh": "隐士",
+      "bank": "sd/hero07.bnk",
+      "events": [
+        "Play_c000707500"
+      ],
+      "ultimate_behavior": "BloodMagic",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2966",
+              "name": "BloodMagicStart_CMSG",
+              "animation_id": 660000,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3063",
+              "name": "BloodMagicStart_CMSG",
+              "animation_id": 660000,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "executor",
+      "name_zh": "执行者",
+      "bank": "sd/hero08.bnk",
+      "events": [
+        "Play_c000807501"
+      ],
+      "ultimate_behavior": "DemonBeast",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2968",
+              "name": "DemonBeastStart_CMSG",
+              "animation_id": 670000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object2969",
+              "name": "DemonBeastIdle_CMSG",
+              "animation_id": 670010,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3065",
+              "name": "DemonBeastStart_CMSG",
+              "animation_id": 670000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object3066",
+              "name": "DemonBeastIdle_CMSG",
+              "animation_id": 670010,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scholar",
+      "name_zh": "学者",
+      "bank": "sd/hero09.bnk",
+      "events": [
+        "Play_c000907100"
+      ],
+      "ultimate_behavior": "JointChain",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object2972",
+              "name": "JointChainStart_CMSG",
+              "animation_id": 680000,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object3069",
+              "name": "JointChainStart_CMSG",
+              "animation_id": 680000,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "undertaker",
+      "name_zh": "送葬者",
+      "bank": "sd/hero10.bnk",
+      "events": [
+        "Play_c001007100"
+      ],
+      "ultimate_behavior": "BlinkStake",
+      "evidence": [
+        {
+          "source": "chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object4002",
+              "name": "BlinkStakeStart_CMSG",
+              "animation_id": 690000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4003",
+              "name": "BlinkStakeStart_Bonus_CMSG",
+              "animation_id": 690010,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4007",
+              "name": "AirBlinkStakeStart_CMSG",
+              "animation_id": 695000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4008",
+              "name": "AirBlinkStakeStart_Bonus_CMSG",
+              "animation_id": 695010,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object10586",
+              "name": "BlinkStakeFinish_CMSG",
+              "animation_id": 690001,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object10587",
+              "name": "BlinkStakeFinish_Bonus_CMSG",
+              "animation_id": 690011,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object15457",
+              "name": "BlinkStake_Up_CMSG",
+              "animation_id": 69510,
+              "offset_type": 0
+            },
+            {
+              "object_id": "object15459",
+              "name": "BlinkStake_Down_CMSG",
+              "animation_id": 699001,
+              "offset_type": 11
+            }
+          ]
+        },
+        {
+          "source": "MMVWeaponsMerge/chr/c0000.behbnd.dcx",
+          "kind": "decoded_behavior_bindings",
+          "bindings": [
+            {
+              "object_id": "object4112",
+              "name": "BlinkStakeStart_CMSG",
+              "animation_id": 690000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4113",
+              "name": "BlinkStakeStart_Bonus_CMSG",
+              "animation_id": 690010,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4117",
+              "name": "AirBlinkStakeStart_CMSG",
+              "animation_id": 695000,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object4118",
+              "name": "AirBlinkStakeStart_Bonus_CMSG",
+              "animation_id": 695010,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object11869",
+              "name": "BlinkStakeFinish_CMSG",
+              "animation_id": 690001,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object11870",
+              "name": "BlinkStakeFinish_Bonus_CMSG",
+              "animation_id": 690011,
+              "offset_type": 11
+            },
+            {
+              "object_id": "object17284",
+              "name": "BlinkStake_Up_CMSG",
+              "animation_id": 69510,
+              "offset_type": 0
+            },
+            {
+              "object_id": "object17286",
+              "name": "BlinkStake_Down_CMSG",
+              "animation_id": 699001,
+              "offset_type": 11
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event_fingerprints": {
+    "Play_c000107105": "26224da6005d2fee2e8337e1ea21aed22c16ad1f14a09f834306cbf42607852a",
+    "Play_c000107106": "fbfc22bf14dd993fb43740bfd800b377f61a48e67b0db82e52870733713ac81f",
+    "Play_c000207103": "63a83c3dc38a5e18c809a4c374e5eb3395db1c631863586d1cde797c9e1a550b",
+    "Play_c000307110": "b8961c6c874ecd3bbcb6e01cdea82d37f9991f25c7d8d19cbc26c4cbc9e702d5",
+    "Play_c000407100": "e3e008bf7f37ac5a854b6b05ec4a7c057099cbb357f1c511906b796aeddac334",
+    "Play_c000508100": "5a46775ef1e97c9a605b3b180e9f8f4efb4b058837f5a2170d45980b4bd1ace4",
+    "Play_c000607102": "28cd5beb8a7ed6e712cacb8234822d8fd119aa6212e9fa860eb919ee86c82ca1",
+    "Play_c000707500": "a721773a60119b5c5a0f891119f666896bc821464a322dc79879493fe2edad8b",
+    "Play_c000807501": "5cc68c1c72b5af4394d97b3462cfa504bc5aedabad13ac32f836cc18720bf221",
+    "Play_c000907100": "d2acd1cdbb989792f246e527898a1e50166ac6243e2e4e263d576120c0643490",
+    "Play_c001007100": "e3c8c740017f2ec20b56881385acde55267aafcefb4912cba84ab9208d487417"
+  },
+  "event_metadata": {
+    "Play_c000107105": {
+      "event_id": 578512205,
+      "bank": "sd/hero01.bnk",
+      "original_action_ids": [
+        330459755
+      ],
+      "original_action_payload_sha256": {
+        "330459755": "4047f4402531d9abf100176ad8466d9ea619231d7aa25b187b4885a1a4570173"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a900.tae",
+          "tae_id": 2900,
+          "animation_id": 600000,
+          "animation_file": "a900_600000.hkt",
+          "start_seconds": 3,
+          "end_seconds": 3.1,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 107105,
+          "playback_behavior_type": 0,
+          "parameters_hex": "0100000061A20100FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        },
+        {
+          "tae": "a900.tae",
+          "tae_id": 2900,
+          "animation_id": 600100,
+          "animation_file": "a900_600100.hkt",
+          "start_seconds": 3,
+          "end_seconds": 3.1,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 107105,
+          "playback_behavior_type": 0,
+          "parameters_hex": "0100000061A20100FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        },
+        {
+          "tae": "a900.tae",
+          "tae_id": 2900,
+          "animation_id": 600200,
+          "animation_file": "a900_600100.hkt",
+          "start_seconds": 3,
+          "end_seconds": 3.1,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 107105,
+          "playback_behavior_type": 0,
+          "parameters_hex": "0100000061A20100FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        },
+        {
+          "tae": "a900.tae",
+          "tae_id": 2900,
+          "animation_id": 605000,
+          "animation_file": "a900_605000.hkt",
+          "start_seconds": 3,
+          "end_seconds": 3.1,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 107105,
+          "playback_behavior_type": 0,
+          "parameters_hex": "0100000061A20100FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        },
+        {
+          "tae": "a900.tae",
+          "tae_id": 2900,
+          "animation_id": 605200,
+          "animation_file": "a900_605200.hkt",
+          "start_seconds": 0.13333334,
+          "end_seconds": 0.23333333,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 107105,
+          "playback_behavior_type": 0,
+          "parameters_hex": "0100000061A20100FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000107106": {
+      "event_id": 578512206,
+      "bank": "sd/hero01.bnk",
+      "original_action_ids": [
+        395393753
+      ],
+      "original_action_payload_sha256": {
+        "395393753": "7898ff22b12a051ae3892e3fb35a33e6ce8c2f2b3a6f31b733d26187c9ce0463"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a900.tae",
+          "tae_id": 2900,
+          "animation_id": 600005,
+          "animation_file": "a900_600005.hkt",
+          "start_seconds": 1.9666667,
+          "end_seconds": 2.0666666,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 107106,
+          "playback_behavior_type": 0,
+          "parameters_hex": "0100000062A20100FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000207103": {
+      "event_id": 2798774754,
+      "bank": "sd/hero02.bnk",
+      "original_action_ids": [
+        305954665
+      ],
+      "original_action_payload_sha256": {
+        "305954665": "0c50bfb54cf93999c8eb3bbca688536c0f75919e1a9fa4a47c4991a816081924"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a901.tae",
+          "tae_id": 2901,
+          "animation_id": 610000,
+          "animation_file": "a901_610000.hkt",
+          "start_seconds": 2.9333334,
+          "end_seconds": 3.1,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 207103,
+          "playback_behavior_type": 0,
+          "parameters_hex": "01000000FF280300FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        },
+        {
+          "tae": "a901.tae",
+          "tae_id": 2901,
+          "animation_id": 615000,
+          "animation_file": "a901_615000.hkt",
+          "start_seconds": 2.1666667,
+          "end_seconds": 2.3333333,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 207103,
+          "playback_behavior_type": 0,
+          "parameters_hex": "01000000FF280300FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000307110": {
+      "event_id": 2187030325,
+      "bank": "sd/hero03.bnk",
+      "original_action_ids": [
+        82073290
+      ],
+      "original_action_payload_sha256": {
+        "82073290": "0e02944f685a2ae01683ede75fc1675420027c486b45130845417a63c8322708"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a902.tae",
+          "tae_id": 2902,
+          "animation_id": 620000,
+          "animation_file": "a902_620000.hkt",
+          "start_seconds": 2.8666666,
+          "end_seconds": 3,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 307110,
+          "playback_behavior_type": 0,
+          "parameters_hex": "01000000A6AF0400FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        },
+        {
+          "tae": "a902.tae",
+          "tae_id": 2902,
+          "animation_id": 620005,
+          "animation_file": "a902_620005.hkt",
+          "start_seconds": 0.033333335,
+          "end_seconds": 0.13333334,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 307110,
+          "playback_behavior_type": 0,
+          "parameters_hex": "01000000A6AF0400FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000407100": {
+      "event_id": 2825332435,
+      "bank": "sd/hero04.bnk",
+      "original_action_ids": [
+        304075692
+      ],
+      "original_action_payload_sha256": {
+        "304075692": "423a0178b52f55248df720560209becdeb542ccc034b0ac57213eddca7671973"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a903.tae",
+          "tae_id": 2903,
+          "animation_id": 630000,
+          "animation_file": "a903_630000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 1.2666667,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 407100,
+          "playback_behavior_type": 2,
+          "parameters_hex": "010000003C360600FFFFFFFF3E000000000002010100000000000000FF000000"
+        },
+        {
+          "tae": "a903.tae",
+          "tae_id": 2903,
+          "animation_id": 635000,
+          "animation_file": "a903_635000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 1.2666667,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 407100,
+          "playback_behavior_type": 2,
+          "parameters_hex": "010000003C360600FFFFFFFF3E000000000002010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000508100": {
+      "event_id": 598485361,
+      "bank": "sd/hero05.bnk",
+      "original_action_ids": [
+        302241724
+      ],
+      "original_action_payload_sha256": {
+        "302241724": "1ffa1cd388b73cc43998503b51761842b381830130da713491f14bd605e55d78"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a904.tae",
+          "tae_id": 2904,
+          "animation_id": 640000,
+          "animation_file": "a904_640000.hkt",
+          "start_seconds": 1.0666667,
+          "end_seconds": 4.3,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 508100,
+          "playback_behavior_type": 1,
+          "parameters_hex": "01000000C4C00700FFFFFFFFFFFFFFFF000001010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000607102": {
+      "event_id": 2994958767,
+      "bank": "sd/hero06.bnk",
+      "original_action_ids": [
+        710289437
+      ],
+      "original_action_payload_sha256": {
+        "710289437": "d596791afe072d3653730987536e4a6ed0c95ed0f9432c256e78e86a16ed1c96"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a905.tae",
+          "tae_id": 2905,
+          "animation_id": 650000,
+          "animation_file": "a905_650000.hkt",
+          "start_seconds": 1.2666667,
+          "end_seconds": 1.3666667,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 607102,
+          "playback_behavior_type": 0,
+          "parameters_hex": "010000007E430900FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000707500": {
+      "event_id": 728922218,
+      "bank": "sd/hero07.bnk",
+      "original_action_ids": [
+        944293783
+      ],
+      "original_action_payload_sha256": {
+        "944293783": "f00994a17bc483bdae62863a95efeeaf3d22b4930a4d21ad55e7557a83bd9294"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a906.tae",
+          "tae_id": 2906,
+          "animation_id": 660000,
+          "animation_file": "a906_660000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 5.3333335,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 707500,
+          "playback_behavior_type": 2,
+          "parameters_hex": "01000000ACCB0A00FFFFFFFFFFFFFFFF000002010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000807501": {
+      "event_id": 443924698,
+      "bank": "sd/hero08.bnk",
+      "original_action_ids": [
+        281426121
+      ],
+      "original_action_payload_sha256": {
+        "281426121": "5e598aebaf2f25af1b16b55f04ca78c6c4d8de79f45a9392a0b43ed139d72d72"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a907.tae",
+          "tae_id": 2907,
+          "animation_id": 670000,
+          "animation_file": "a907_670000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 0.8,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 807501,
+          "playback_behavior_type": 0,
+          "parameters_hex": "010000004D520C00FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c000907100": {
+      "event_id": 2906932992,
+      "bank": "sd/hero09.bnk",
+      "original_action_ids": [
+        855323728
+      ],
+      "original_action_payload_sha256": {
+        "855323728": "e6afc575dbba97ee95904bf4be5acc68aa779ce1ed6018bcc017626192a59de7"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a908.tae",
+          "tae_id": 2908,
+          "animation_id": 680000,
+          "animation_file": "a908_680000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 4.266667,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 907100,
+          "playback_behavior_type": 0,
+          "parameters_hex": "010000005CD70D00FFFFFFFFFFFFFFFF000000010100000000000000FF000000"
+        }
+      ]
+    },
+    "Play_c001007100": {
+      "event_id": 292920830,
+      "bank": "sd/hero10.bnk",
+      "original_action_ids": [
+        300464723
+      ],
+      "original_action_payload_sha256": {
+        "300464723": "e703ede7be9d654241c8300dccafe76593cefd680aa95042729d27ad5e1df54b"
+      },
+      "native_and_mmv_tae_uses": [
+        {
+          "tae": "a909.tae",
+          "tae_id": 2909,
+          "animation_id": 690000,
+          "animation_file": "a909_690000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 1.9,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 1007100,
+          "playback_behavior_type": 1,
+          "parameters_hex": "01000000FC5D0F00FFFFFFFFFFFFFFFF000001010100000000000000FF000000"
+        },
+        {
+          "tae": "a909.tae",
+          "tae_id": 2909,
+          "animation_id": 690010,
+          "animation_file": "a909_690000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 1.9,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 1007100,
+          "playback_behavior_type": 1,
+          "parameters_hex": "01000000FC5D0F00FFFFFFFFFFFFFFFF000001010100000000000000FF000000"
+        },
+        {
+          "tae": "a909.tae",
+          "tae_id": 2909,
+          "animation_id": 695000,
+          "animation_file": "a909_695000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 1.4666667,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 1007100,
+          "playback_behavior_type": 1,
+          "parameters_hex": "01000000FC5D0F00FFFFFFFFFFFFFFFF000001010100000000000000FF000000"
+        },
+        {
+          "tae": "a909.tae",
+          "tae_id": 2909,
+          "animation_id": 695010,
+          "animation_file": "a909_695000.hkt",
+          "start_seconds": 0,
+          "end_seconds": 1.4666667,
+          "tae_event_type": 129,
+          "sound_type": 1,
+          "sound_id": 1007100,
+          "playback_behavior_type": 1,
+          "parameters_hex": "01000000FC5D0F00FFFFFFFFFFFFFFFF000001010100000000000000FF000000"
+        }
+      ]
+    }
+  },
+  "static_audit": {
+    "native_animations_scanned": 11606,
+    "mmv_animations_scanned": 13994,
+    "selected_event_uses_identical": true,
+    "selected_events_per_animation_maximum": 1,
+    "in_game_once_per_cast_verified": false,
+    "coop_verified": false
+  },
+  "source_fingerprints": {
+    "chr/c0000.anibnd.dcx": "610f553520e5127da7366fe6c619683acac11b7aee6f6b2450b8186af0b573e1",
+    "chr/c0000_a9x.anibnd.dcx": "eda09b1adc8b5e1c2651a0b32c2e31bca9f8d96f1a59543c402a2ddc3f63232f",
+    "chr/c0000.behbnd.dcx": "d4a80fc4472d3486551c8bc01749dbf109a0f94b7dd02e7d06300ce92146fdaf",
+    "action/script/c0000.hks": "5f9e1fd6b2717bae758c3b8daaf2023216807bb2b9eb1a2219bf5fcf355338da"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "gain_db": -6.0,
+  "characters": {
+    "wylder": {"audio": "../voices/wylder.wav", "enabled": true},
+    "guardian": {"audio": "../voices/guardian.wav", "enabled": true},
+    "ironeye": {"audio": "../voices/ironeye.wav", "enabled": true},
+    "duchess": {"audio": "../voices/duchess.wav", "enabled": true},
+    "raider": {"audio": "../voices/raider.wav", "enabled": true},
+    "revenant": {"audio": "../voices/revenant.wav", "enabled": true},
+    "recluse": {"audio": "../voices/recluse.wav", "enabled": true},
+    "executor": {"audio": "../voices/executor.wav", "enabled": true},
+    "scholar": {"audio": "../voices/scholar.wav", "enabled": true},
+    "undertaker": {"audio": "../voices/undertaker.wav", "enabled": true}
+  }
+}

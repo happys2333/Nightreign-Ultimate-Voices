@@ -10,6 +10,12 @@
 
 ---
 
+## Execution status (2026-10-27)
+
+Tasks 1–4 implemented. Actual events reside in `sd/hero01.bnk` through `hero10.bnk`; no shared cs_main override is needed. All 38 automated tests pass, the ten-bank local build and owned-package verification pass, and independent spec/code reviews pass. ME3 launched the generated profile and loaded the existing save into Roundtable Hold.
+
+Task 5 has completed static/independent-format, preservation, CLI, startup and review checks. Actual ultimate playback, two-client mixed-install co-op, distance behavior and FPS comparison remain open. Automated keyboard input was not reliably accepted by the game; a manual training-ground playback check has been requested. See `docs/verification.md` for the acceptance matrix; no pending game checks are represented as passed.
+
 ## Task 1: Establish resource evidence
 
 - [ ] Inspect the local sound archive headers and relevant player animation/FXR files using read-only extraction into `local/`.

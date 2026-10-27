@@ -1,0 +1,151 @@
+from copy import deepcopy
+import hashlib
+import json
+from pathlib import Path
+import struct
+import tempfile
+import unittest
+import wave
+
+from test_bank import sample_bank
+
+
+class BuildTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        with wave.open(str(self.root / "voice.wav"), "wb") as stream:
+            stream.setparams((1, 2, 24000, 0, "NONE", ""))
+            stream.writeframes(struct.pack("<h", 1000) * 2400)
+        self.mapping = {"game_version":"1.3.3.0", "bank":"sd/cs_main.bnk",
+                        "characters":[{"id":"wylder","name_zh":"追踪者","events":["Play_c000107105"]}]}
+        self.voices = {"gain_db":-6,"characters":{"wylder":{"audio":"voice.wav","enabled":True}}}
+
+    def bank(self):
+        from nuv.build import event_hash
+        return sample_bank().replace(struct.pack("<BII",4,13,10), struct.pack("<BII",4,13,event_hash("Play_c000107105")))
+
+    def test_build_preserves_original_actions_and_has_no_runtime_components(self):
+        from nuv.bank import Bank
+        from nuv.build import build_bank, event_hash
+        source = self.bank()
+        built, report = build_bank(source, self.mapping, self.voices, self.root)
+        event = event_hash("Play_c000107105")
+        self.assertEqual(Bank.parse(built).event_actions(event)[:2], (20,21))
+        self.assertEqual(report["characters"][0]["id"], "wylder")
+        self.assertEqual(report["source_sha256"], hashlib.sha256(source).hexdigest())
+        self.assertEqual(report["runtime"], {"processes":0,"dlls":0,"polling":False,"network_messages":0})
+        self.assertGreater(report["added_media_bytes"],0)
+
+    def test_refuses_changed_original_event_and_unknown_roles(self):
+        from nuv.build import build_bank
+        mapping = deepcopy(self.mapping)
+        mapping["event_fingerprints"] = {"Play_c000107105":"0"*64}
+        with self.assertRaisesRegex(ValueError,"changed"):
+            build_bank(self.bank(),mapping,self.voices,self.root)
+        voices = deepcopy(self.voices)
+        voices["characters"]["typo"]={"audio":"voice.wav","enabled":True}
+        with self.assertRaisesRegex(ValueError,"Unknown"):
+            build_bank(self.bank(),self.mapping,voices,self.root)
+
+    def test_disabled_character_needs_no_file_and_never_changes_bank(self):
+        from nuv.build import build_bank
+        voices = {"characters":{"wylder":{"enabled":False}}}
+        built, report = build_bank(self.bank(),self.mapping,voices,self.root)
+        self.assertEqual(built,self.bank())
+        self.assertEqual(report["added_media_bytes"],0)
+
+    def test_failure_does_not_touch_existing_output_or_game_files(self):
+        from nuv.build import build_bank, write_package
+        output=self.root/"out"
+        source=self.bank()
+        built,report=build_bank(source,self.mapping,self.voices,self.root)
+        write_package(output,built,"profileVersion='v1'\n",report)
+        original={p.relative_to(output):p.read_bytes() for p in output.rglob("*") if p.is_file()}
+        bad=deepcopy(self.voices)
+        bad["characters"]["wylder"]["audio"]="missing.wav"
+        with self.assertRaises(FileNotFoundError):
+            build_bank(source,self.mapping,bad,self.root)
+        self.assertEqual(original,{p.relative_to(output):p.read_bytes() for p in output.rglob("*") if p.is_file()})
+        (output/"my-notes.txt").write_text("keep me")
+        with self.assertRaisesRegex(ValueError,"unowned"):
+            write_package(output,built,"profileVersion='v1'\n",report)
+        self.assertEqual((output/"my-notes.txt").read_text(),"keep me")
+
+    def test_owned_package_can_rebuild_and_verify_detects_tampering(self):
+        from nuv.build import build_bank, write_package, verify_package
+        output=self.root/"out"
+        built,report=build_bank(self.bank(),self.mapping,self.voices,self.root)
+        write_package(output,built,"profileVersion='v1'\n",report)
+        self.assertTrue(verify_package(output)["valid"])
+        write_package(output,built,"profileVersion='v1'\n# updated\n",report)
+        self.assertTrue(verify_package(output)["valid"])
+        (output/"mod/sd/cs_main.bnk").write_bytes(b"broken")
+        with self.assertRaisesRegex(ValueError,"modified"):
+            verify_package(output)
+
+    def test_wwise_hash_known_init_bank_id(self):
+        from nuv.build import event_hash
+        self.assertEqual(event_hash("Init"),1355168291)
+
+    def test_refuses_bank_with_changed_source_digest(self):
+        from nuv.build import build_bank
+        mapping=deepcopy(self.mapping)
+        mapping["banks"]={"sd/cs_main.bnk":"0"*64}
+        with self.assertRaisesRegex(ValueError,"source bank"):
+            build_bank(self.bank(),mapping,self.voices,self.root)
+
+    def test_windows_temporary_rename_denial_is_retried(self):
+        from unittest.mock import patch
+        from nuv.build import build_bank, write_package, verify_package
+        output=self.root/"out"
+        built,report=build_bank(self.bank(),self.mapping,self.voices,self.root)
+        original=Path.rename
+        calls=[]
+        def rename(path,target):
+            calls.append((path,target))
+            if len(calls)==1:
+                raise PermissionError(13,"temporary directory sharing violation")
+            return original(path,target)
+        with patch.object(Path,"rename",rename):
+            write_package(output,built,"profileVersion='v1'\n",report)
+        self.assertTrue(verify_package(output)["valid"])
+        self.assertEqual(len(calls),2)
+
+    def test_failed_publish_restores_old_package(self):
+        from unittest.mock import patch
+        from nuv.build import build_bank, write_package, verify_package
+        output=self.root/"out"
+        built,report=build_bank(self.bank(),self.mapping,self.voices,self.root)
+        write_package(output,built,"old profile\n",report)
+        original=Path.rename
+        def rename(path,target):
+            if path.name=="prepared":
+                raise PermissionError(13,"publishing denied")
+            return original(path,target)
+        with patch.object(Path,"rename",rename), patch("nuv.build.time.sleep"):
+            with self.assertRaises(PermissionError):
+                write_package(output,built,"new profile\n",report)
+        self.assertTrue(verify_package(output)["valid"])
+        self.assertEqual((output/"UltimateVoices.me3").read_text(),"old profile\n")
+
+    def test_failed_publish_and_restore_preserve_a_recoverable_old_package(self):
+        from unittest.mock import patch
+        from nuv.build import build_bank, write_package, verify_package
+        output=self.root/"out"
+        built,report=build_bank(self.bank(),self.mapping,self.voices,self.root)
+        write_package(output,built,"old profile\n",report)
+        original=Path.rename
+        def rename(path,target):
+            if path==output:
+                return original(path,target)
+            raise PermissionError(13,"both publish and restore denied")
+        with patch.object(Path,"rename",rename), patch("nuv.build.time.sleep"):
+            with self.assertRaises(ValueError):
+                write_package(output,built,"new profile\n",report)
+        surviving=list(self.root.rglob("cs_main.bnk"))
+        self.assertEqual(len(surviving),1,"old bank must survive temporary-directory cleanup")
+        backup=surviving[0].parents[2]
+        self.assertTrue(verify_package(backup)["valid"])
+        self.assertEqual((backup/"UltimateVoices.me3").read_text(),"old profile\n")
