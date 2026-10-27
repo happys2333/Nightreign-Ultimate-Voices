@@ -274,7 +274,9 @@ class Bank:
         ids = {}
         occupied = set(self._lookup) | self.media_ids
         for role in ("sound", "action", "media"):
-            value = int.from_bytes(hashlib.sha256(f"nuv/v1/{namespace}/{role}".encode("utf-8")).digest()[:4], "little")
+            # Wwise's unnamed objects/media use 30-bit GUID-derived ShortIDs.
+            # Named Events/buses retain their original full-width FNV IDs.
+            value = int.from_bytes(hashlib.sha256(f"nuv/v1/{namespace}/{role}".encode("utf-8")).digest()[:4], "little") & 0x3FFFFFFF
             if not value or value in occupied or value in ids.values():
                 raise ValueError(f"namespace already patched or deterministic {role} ID collision")
             ids[role] = value

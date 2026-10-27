@@ -138,6 +138,16 @@ class BankTests(unittest.TestCase):
         self.assertEqual(sound[advanced] & 0x05, 1)  # kill newest, per game object
         self.assertEqual(struct.unpack_from("<H", sound, advanced + 2)[0], 1)
 
+    def test_generated_sound_action_and_media_ids_use_native_30_bit_domain(self):
+        bank = Bank.parse(sample_bank())
+        result = bank.add_voice(10, "range-test", self.wem())
+        for role in ("sound_id", "action_id", "media_id"):
+            with self.subTest(role=role):
+                self.assertGreater(result[role], 0)
+                self.assertLessEqual(result[role], 0x3FFFFFFF)
+        again = Bank.parse(sample_bank()).add_voice(10, "range-test", self.wem())
+        self.assertEqual(result, again)
+
     def test_large_event_count_uses_wwise_big_endian_varint_and_aligns_data(self):
         # Wwise varuint is base-128 most-significant group first, unlike LEB128.
         actions = (20,) * 127
