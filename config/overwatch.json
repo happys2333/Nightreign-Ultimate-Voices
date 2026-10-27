@@ -28,6 +28,32 @@
       }
     },
     {
+      "nightreign": "guardian",
+      "hero": "Doomfist",
+      "hero_zh": "末日铁拳",
+      "hero_id": "12F",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "12F",
+        "audience": "enemy",
+        "resource_guid": "000000041300.0B2",
+        "relative_path": "Pinned/000000041300.0B2.wem",
+        "sha256": "8d920c1e69287aa3186cd86a41fdd19f15efd646cf020a895b21ea30bca4f192",
+        "subtitle": "毁天灭地！",
+        "stimulus_guid": "0000000007D0.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred listener enum STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original paired ultimate lines. Exact group Ultimate and empty criteria verified in local build 2.25.0.1.154504N. All 139 progression skins checked: no exact skin name 暗影守望. Default voice set 159, 战地指挥官/Strike Commander voice set 279, and 熔岩泰坦 voice set 2C5 share this same enemy ultimate resource; it is not a skin-exclusive line.",
+        "voice_definition_guids": [
+          "000000000159.05F",
+          "000000000279.05F",
+          "0000000002C5.05F"
+        ],
+        "shared_skin_enemy_line": true
+      }
+    },
+    {
       "nightreign": "ironeye",
       "hero": "Hanzo",
       "hero_zh": "半藏",
@@ -46,6 +72,27 @@
         "criteria": "",
         "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
         "inspected_ogg_sha256": "ed336a95fae9658b90c1006009fc7e8d817c50900e9a1361cee54f4cf426fab3"
+      }
+    },
+    {
+      "nightreign": "duchess",
+      "hero": "Zenyatta",
+      "hero_zh": "禅雅塔",
+      "hero_id": "20",
+      "audience": "friendly",
+      "clip": {
+        "hero_id": "20",
+        "audience": "friendly",
+        "resource_guid": "000000022015.0B2",
+        "relative_path": "Pinned/000000022015.0B2.wem",
+        "sha256": "47139703b2fd5e0de7caef4ed1bdcaca29ab82323573dd92711d411ed83672e5",
+        "subtitle": "感受宁静。",
+        "stimulus_guid": "000000000145.078",
+        "stimulus_audience_enum": 0,
+        "source_audience": "friendly",
+        "criteria": "",
+        "selection_evidence": "Inferred listener enum STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original paired ultimate lines. Exact group Ultimate and empty criteria verified in local build 2.25.0.1.154504N. Base hero voice definition 03D contains exactly one generic friendly Ultimate release with no criteria. Enemy A92B and self 0698A0 have separate listener contexts; event-only variants and Ready/Charging groups excluded.",
+        "voice_definition_guid": "00000000003D.05F"
       }
     },
     {
@@ -70,27 +117,6 @@
       }
     },
     {
-      "nightreign": "recluse",
-      "hero": "Doctrine",
-      "hero_zh": "血律",
-      "hero_id": "570",
-      "audience": "enemy",
-      "clip": {
-        "hero_id": "570",
-        "audience": "enemy",
-        "resource_guid": "00000006D10F.0B2",
-        "relative_path": "Pinned/00000006D10F.0B2.wem",
-        "sha256": "b76fa10635ac63147d0f0d1a177ad35a1d246d792ee22998bcf81e54e0a414ef",
-        "subtitle": "（绍纳语）：命运由我驱使！",
-        "stimulus_guid": "000000001A3E.078",
-        "stimulus_audience_enum": 1,
-        "source_audience": "enemy",
-        "criteria": "",
-        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
-        "inspected_ogg_sha256": "379ecb5afbc0bb7f5b6b7af0a568fdf08b76120e84a42473cef860aab42c6f5f"
-      }
-    },
-    {
       "nightreign": "revenant",
       "hero": "Ana",
       "hero_zh": "安娜",
@@ -110,6 +136,27 @@
         "selection_evidence": "Explicit user choice: Ana boost-target line. STUVoiceStimulus m_DF647B95=0 (friendly), m_EE144B9E=1 (target listener context); original stimulus 000000000678.078 and subtitle verified in local voice-slots.json.",
         "inspected_ogg_sha256": "2f7aa0a7935e88c19ecc4352936877cf81d972dd2a04ab676806ad3ac71ce83f",
         "target_listener_context": 1
+      }
+    },
+    {
+      "nightreign": "recluse",
+      "hero": "Doctrine",
+      "hero_zh": "血律",
+      "hero_id": "570",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "570",
+        "audience": "enemy",
+        "resource_guid": "00000006D10F.0B2",
+        "relative_path": "Pinned/00000006D10F.0B2.wem",
+        "sha256": "b76fa10635ac63147d0f0d1a177ad35a1d246d792ee22998bcf81e54e0a414ef",
+        "subtitle": "（绍纳语）：命运由我驱使！",
+        "stimulus_guid": "000000001A3E.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "379ecb5afbc0bb7f5b6b7af0a568fdf08b76120e84a42473cef860aab42c6f5f"
       }
     },
     {
@@ -139,27 +186,6 @@
       }
     },
     {
-      "nightreign": "undertaker",
-      "hero": "Shion",
-      "hero_zh": "死怨",
-      "hero_id": "52C",
-      "audience": "enemy",
-      "clip": {
-        "hero_id": "52C",
-        "audience": "enemy",
-        "resource_guid": "00000006C434.0B2",
-        "relative_path": "Pinned/00000006C434.0B2.wem",
-        "sha256": "53e934bb8491cec1ab2ec22e0293b72e7eb2b9ec7800f3cdcf363ad00c0a959f",
-        "subtitle": "（日语）：看看我变成了什么样子！",
-        "stimulus_guid": "0000000019DE.078",
-        "stimulus_audience_enum": 1,
-        "source_audience": "enemy",
-        "criteria": "",
-        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
-        "inspected_ogg_sha256": "c06cf5489d37a6e178cbee046415b50b8f4dd0d2d21676d62bfa11fe187a6154"
-      }
-    },
-    {
       "nightreign": "scholar",
       "hero": "Sombra",
       "hero_zh": "黑影",
@@ -179,6 +205,27 @@
         "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
         "inspected_ogg_sha256": "cbe42898ec161fd9390a78331478ff10e77c7fe09ecf70cc7d61cd4e2f2e2158"
       }
+    },
+    {
+      "nightreign": "undertaker",
+      "hero": "Shion",
+      "hero_zh": "死怨",
+      "hero_id": "52C",
+      "audience": "enemy",
+      "clip": {
+        "hero_id": "52C",
+        "audience": "enemy",
+        "resource_guid": "00000006C434.0B2",
+        "relative_path": "Pinned/00000006C434.0B2.wem",
+        "sha256": "53e934bb8491cec1ab2ec22e0293b72e7eb2b9ec7800f3cdcf363ad00c0a959f",
+        "subtitle": "（日语）：看看我变成了什么样子！",
+        "stimulus_guid": "0000000019DE.078",
+        "stimulus_audience_enum": 1,
+        "source_audience": "enemy",
+        "criteria": "",
+        "selection_evidence": "Inferred from STUVoiceStimulus.m_DF647B95: 0=friendly, 1=enemy, 2=self; calibrated against original Hanzo/Sombra enemy ult lines and paired Chinese friendly lines. Enum names remain unknown upstream.",
+        "inspected_ogg_sha256": "c06cf5489d37a6e178cbee046415b50b8f4dd0d2d21676d62bfa11fe187a6154"
+      }
     }
   ],
   "toolchain": {
@@ -191,6 +238,7 @@
     "Anran normal offensive ultimate selects 火羽焚天; alternate resurrection 朱雀展翅 is not used.",
     "Ana explicitly selects user-requested 你被强化了！快上！ from the friendly boost-target listener context (02B8CD).",
     "Winston uses the native shared primal activation SFX main layer; no separate enemy-only speech was present.",
-    "Guardian and Duchess are not included in this user-specified OW preset."
+    "Guardian uses Doomfist shared enemy ultimate 毁天灭地！. No progression skin named 暗影守望 exists in the audited local build; 战地指挥官 (Mirrorwatch) uses the same enemy asset.",
+    "Duchess uses Zenyatta generic friendly ultimate 感受宁静。; enemy/self/conditional event variants are not selected."
   ]
 }
