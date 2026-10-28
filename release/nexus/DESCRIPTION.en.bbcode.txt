@@ -1,0 +1,45 @@
+[size=5][b]Nightreign Ultimate Voices[/b][/size]
+[b]Custom ultimate callouts for all ten Nightfarers — Local Build Toolkit, v0.1.0 Beta[/b]
+
+Give every Nightfarer a custom ultimate voice using your own WAV files. Callouts run through native game animation and Wwise events. Your teammates do not need to install the toolkit to keep playing with you.
+
+[b]This is a source/build toolkit, not a prebuilt voice pack or one-click Vortex install.[/b] It includes no extracted Overwatch audio, original Nightreign resources, MMV resources, or merged banks/animations. You supply audio you are entitled to use and generate the mod on your own computer.
+
+[size=4][b]Features[/b][/size]
+[list]
+[*]Custom WAV audio, volume adjustment and enable/disable settings for all ten Nightfarers.
+[*]Guardian and Ironeye callouts at the start of the accepted ultimate animation; Scholar at recovery, around 3.3 seconds.
+[*]Other characters follow their native ultimate events.
+[*]Audited dedicated original shouts removed while charge, explosion and hit effects remain.
+[*]Native playback with no added project DLL, background process, polling loop, runtime transcoder or network protocol.
+[*]Each installed client uses its own audio. No audio is transmitted to unmodified teammates.
+[/list]
+
+[size=4][b]Requirements and installation[/b][/size]
+Windows x64, Steam Nightreign file version [b]1.3.3.0[/b], [url=https://github.com/garyttierney/me3/releases]Mod Engine 3[/url], [url=https://git-scm.com/downloads/win]Git[/url], [url=https://docs.astral.sh/uv/getting-started/installation/]uv[/url], and [url=https://dotnet.microsoft.com/en-us/download/dotnet/9.0].NET 9 SDK x64[/url]. First-time source/dependency preparation requires internet access. Seamless Co-op is optional for a setup you already use successfully.
+
+Extract outside the game installation. Open a terminal in the toolkit folder:
+[code]powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Prepare-AnimationTools.ps1[/code]
+
+Put mono/stereo PCM16 WAV files in voices/, up to 48 kHz and 8 seconds. File names and per-character settings are listed in README.en.md and config/voices.json. Disable unused characters. Optional Chinese test audio can be generated locally if a Chinese Windows speech voice is installed:
+[code]powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Generate-TestVoices.ps1[/code]
+
+Build with your original working offline/seamless ME3 profile, replacing this example path:
+[code]uv run python -m nuv build --base-profile "C:\MyMods\original.me3"
+uv run python -m nuv verify "dist\UltimateVoices"[/code]
+
+You can also drag the original .me3 profile onto Build.cmd. Omit --base-profile for offline solo. Launch [b]dist/UltimateVoices/Launch.cmd[/b] after building. The original profile is preserved. Rebuild after moving the toolkit or other mods, changing audio, or changing computers. Do not use regular official matchmaking with this mod.
+
+[size=4][b]Compatibility and testing[/b][/size]
+The builder validates the game version and source hashes. It accepts native 1.3.3.0 or the specifically tested MMVWeaponsMerge animation input. Other versions of MMV, modified banks, or other animation/sound-catalog replacements may be rejected. This is not universal animation-mod compatibility; do not force a merge by overwriting files. ME3 profile inheritance is currently unsupported.
+
+On 28 October 2026 the local tester reported no issues observed with the current BySlot revision. The functional code passed 103 automated tests. A complete character/branch matrix, mixed-install co-op and distance matrix, and frame-time benchmark have not been completed. Hearing distant teammates depends on native events reaching your client. No FPS improvement is claimed.
+
+[size=4][b]Uninstall and support[/b][/size]
+Use your original launch profile to disable the mod. To remove generated files: [code]uv run python -m nuv uninstall "dist\UltimateVoices"[/code]
+Input WAV files are preserved. For reports include versions, character, solo/seamless setup, other audio/animation mods, steps, build-report.json and the corresponding ME3 log. Redact personal paths before sharing; do not upload saves or extracted game archives.
+
+[size=4][b]Permissions and credits[/b][/size]
+Project code is GPL-3.0; see LICENSE. This license grants no rights to third-party game audio or other mods. Source/dependency credits are in THIRD_PARTY_NOTICES.md. Thanks to SoulsFormatsNEXT/UXM, ME3, Yonder/wwiser, vgmstream and OWLib/TACTLib contributors for tools and format research. Third-party binaries and game media are not bundled.
+
+Development used substantial AI-generated code under human-directed requirements, clip selection and local testing. This page text was also AI-drafted. No cloned or AI-imitated character voice files are included.

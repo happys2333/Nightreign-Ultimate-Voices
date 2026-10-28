@@ -1,0 +1,33 @@
+[size=5][b]黑夜君临大招自定义语音 / Nightreign Ultimate Voices[/b][/size]
+[b]十角色本地播报工具包 · 0.1.0 测试版[/b]
+
+为十名角色的大招配置自己的 WAV 音频，通过游戏原生声音事件播放。谁安装谁使用本地声库，队友无需为此安装本工具，也不会收到你传输的语音文件。
+
+[b]本下载是源码构建工具包，需要 Git、uv 和 .NET 9 SDK；不是解压即用声音包，也不是 Vortex 即装文件。[/b]包内不附守望语音、黑夜君临原资源、MMV 资源或合并后的声库/动画。请使用自己有权使用的音频，在目标电脑生成模组。
+
+[b]功能[/b]
+[list]
+[*]十名角色可单独指定 WAV、增益、音量校准与启用开关。
+[*]守护者、铁眼在大招动作起手播报；学者约 3.3 秒收招时播报；其他角色随各自原生大招事件触发。
+[*]移除已确认的专用原喊声，保留蓄力、爆炸和命中音效，不全局静音战斗语音。
+[*]没有新增本项目常驻进程、DLL、轮询、游戏内转码或联机协议。
+[/list]
+
+[b]安装[/b]
+需要 Windows x64、Steam 黑夜君临文件版本 1.3.3.0、ME3、Git、uv 和 .NET 9 SDK x64。首次准备依赖需联网。完整安装步骤见包内 README.zh-CN.md。将工具包解压到游戏安装目录以外，运行：
+[code]powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Prepare-AnimationTools.ps1[/code]
+在 voices/ 放入自己的 PCM16 WAV，单/双声道、不超过 48 kHz、每段不超过 8 秒。也可在装有中文 Windows 语音的电脑本地生成测试音频：
+[code]powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/Generate-TestVoices.ps1[/code]
+修改 config/voices.json 中的文件与角色开关，使用自己的原始离线/无缝联机 .me3 配置构建：
+[code]uv run python -m nuv build --base-profile "C:\MyMods\original.me3"
+uv run python -m nuv verify "dist\UltimateVoices"[/code]
+然后双击 dist/UltimateVoices/Launch.cmd。原配置也可拖到 Build.cmd；离线单人构建可省略 --base-profile。换电脑、移动目录或修改音频后需重新构建。请勿通过普通官方匹配使用。
+
+[b]已测范围与限制[/b]
+2026-10-28，本机测试者反馈当前 BySlot 修正版暂未发现问题；103 项自动化测试通过。尚无十角色全部分支、完整混装联机、远距离与帧时间基准，不承诺所有距离都能听到队友。当前只接受原生 1.3.3.0 或已审核的特定 MMV 动画摘要；不等于支持所有 MMV/动作/声音模组版本。配置继承暂不支持，冲突会拒绝构建。
+
+[b]卸载[/b]
+使用原启动配置即可停用。运行 uv run python -m nuv uninstall "dist\UltimateVoices" 可移除本工具拥有的输出，保留输入 WAV。
+
+[b]制作与许可[/b]
+项目代码采用 GPL-3.0，第三方工具见 THIRD_PARTY_NOTICES.md；许可不涵盖游戏音频或其他模组。开发大量使用 AI 生成代码，需求、选段和本机测试由用户指导；此页面文案也由 AI 起草。不附克隆/仿冒角色声音。

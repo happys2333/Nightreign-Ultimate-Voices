@@ -1,0 +1,19 @@
+Nightreign Ultimate Voices 0.1.0 - Local Build Toolkit (Beta)
+
+English: read README.en.md
+中文：请先阅读 README.zh-CN.md
+
+This is a source/build toolkit, not a prebuilt audio pack.
+Requires Windows x64, Nightreign file version 1.3.3.0, ME3,
+Git, uv and .NET 9 SDK. The optional OW importer also needs .NET 10 SDK
+and the exact audited local game build. No game audio is included.
+
+Prepare the animation helper, supply your own WAV files (or generate
+Chinese test clips locally), build with your original ME3 profile,
+then launch the generated dist/UltimateVoices/Launch.cmd.
+
+Keep the whole folder together. Rebuild on each computer or after moving it.
+Do not use official matchmaking. Do not upload generated game resources
+or extracted third-party audio without the required permission.
+
+Project code: GPL-3.0, see LICENSE.

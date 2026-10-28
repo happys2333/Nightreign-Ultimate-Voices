@@ -1,0 +1,13 @@
+# Source toolkit credits and distribution scope
+
+Project code is GPL-3.0; see LICENSE. This download contains project source, configuration metadata, public archive-key data and documentation. It does not contain game media, original or merged game banks/animations, other mods, third-party tool binaries or their source checkouts, Python environments, or pre-generated Windows speech clips.
+
+- [SoulsFormatsNEXT](https://github.com/soulsmods/SoulsFormatsNEXT), Joseph Anderson and contributors, GPL-3.0. scripts/Prepare-AnimationTools.ps1 downloads revision 9e1c36f54962f80c143e3c1fe8a709204aefacf9 and builds the local C# helper. Third-party library source and binaries are not bundled in this download. The local game's Oodle library is used during construction, not redistributed.
+- [UXM Selective Unpack](https://github.com/Nordgaren/UXM-Selective-Unpack), Nordgaren and contributors. Public game archive RSA data comes from ArchiveKeys.cs; these are not user credentials.
+- [Mod Engine 3](https://github.com/garyttierney/me3), separate loader installed by the user. Seamless Co-op, MMVWeaponsMerge and translations remain separate installations and are not redistributed.
+- [cryptography](https://github.com/pyca/cryptography) and [tomli-w](https://github.com/hukkin/tomli-w) are installed separately by uv; see their package licenses in the resulting local environment.
+- [Yonder](https://github.com/ndahn/yonder), Nikolas Dahn; [wwiser](https://github.com/bnnm/wwiser), bnnm and contributors; [DSAnimStudio](https://github.com/Meowmaritus/DSAnimStudio), Meowmaritus and contributors: format and authoring references, not bundled binaries.
+- Optional local OW extraction uses [OWLib](https://github.com/overtools/OWLib), [TACTLib](https://github.com/overtools/TACTLib), and [vgmstream](https://github.com/vgmstream/vgmstream). The preparation script downloads/builds them into the user's .tools directory and records versions. No OW audio, archive, keyring download or decoder binary is inside this public ZIP. See OW-PRESET.md for pinned build limitations.
+- scripts/Generate-TestVoices.ps1 optionally uses Windows System.Speech with the user's installed Chinese voice. Generated speech is produced locally, not bundled in this toolkit.
+
+Names of games, characters and tools identify compatibility and sources. Project licensing does not grant permission to redistribute any of their assets. No Wwise SDK runtime, YAMNet model, research data, game DLL, or local testing binary is redistributed. Development used substantial AI-generated code and AI-drafted publication text under human-directed requirements and local gameplay testing.
