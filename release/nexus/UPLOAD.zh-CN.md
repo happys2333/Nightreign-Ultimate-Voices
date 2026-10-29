@@ -1,5 +1,7 @@
 # Nexus Mods 首发准备
 
+2026-10-29 更新：用户选择先整理内置守望语音的成品包、后续再发布。新的 Native/MMV 成品说明见 [成品整理](../overwatch/PREPARED.zh-CN.md)。本页是此前的源码工具包路线，不能直接拿其“不含音频”描述当成品页介绍；工具包仍可作为可选开发文件保留。
+
 整理日期：2026-10-28。建议发布 **Nightreign Ultimate Voices — Custom Callouts (Build Toolkit)**，版本 **0.1.0**，状态 **Beta**。当前项目版本也是 0.1.0。此材料只准备公开文件和页面，不代表已经向 Nexus 提交。
 
 维护者可在 Git 源码仓库中运行 `uv run python release/nexus/package.py` 重新生成白名单 ZIP 和外部 SHA-256 文件。此打包脚本不进入公开工具 ZIP；下载者按 README 使用构建器，不需要重新发布打包流程。打包与异地解压验证结果见 [VALIDATION.md](VALIDATION.md)。

@@ -1,0 +1,25 @@
+Nightreign x Overwatch Ultimate Voices 0.1.0 Beta
+
+Overwatch voice recordings, characters and associated game material:
+Blizzard Entertainment and the respective rights holders/performers.
+These are the selected original Chinese game recordings, not voice clones.
+
+Nightreign base game assets:
+FromSoftware / Bandai Namco and the respective rights holders.
+
+MMV add-on variant only:
+The supplied patched c0000.anibnd.dcx derives from the specifically identified
+MMVWeaponsMerge input. It retains that animation base. Other MMV resources,
+translations, Seamless Co-op and their DLLs are not included.
+
+Original builder/source code and packaging scripts: GPL-3.0, see LICENSE.
+That code license does not transfer ownership of third-party game media.
+No claim of official endorsement or official licensing is made in this package.
+
+Tool/research credits: Mod Engine 3, SoulsFormatsNEXT, UXM Selective Unpack,
+OWLib/TACTLib, vgmstream, Yonder, wwiser and DSAnimStudio contributors.
+Third-party development binaries are not included. ME3 is installed separately.
+
+Development used substantial AI-generated code under human-directed
+requirements, audio selection and gameplay testing. Instructions were AI-drafted.
+This archive is a prepared runtime candidate. Publication is a later step.

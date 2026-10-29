@@ -1,0 +1,12 @@
+profileVersion = "v1"
+start_online = false
+savefile = "NR0000.co2"
+supports = [{ game = "nightreign" }]
+
+[[natives]]
+path = "./SeamlessCoop/nrsc.dll"
+load_early = true
+
+[[packages]]
+id = "nightreign-ultimate-voices"
+path = "./mod"

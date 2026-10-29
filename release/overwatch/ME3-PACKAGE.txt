@@ -1,0 +1,7 @@
+# Append to a COPY of your existing working offline/seamless MMV profile.
+# The path is relative to that profile. Adjust the MMV ID if yours differs.
+
+[[packages]]
+id = "nightreign-ultimate-voices"
+path = "./UltimateVoices-MMV/mod"
+load_after = [{ id = "MMVWeaponsMerge", optional = false }, { id = "CNTrans", optional = true }]
