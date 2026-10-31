@@ -9,7 +9,7 @@
 
 | File ID | 文件 | 自动审核状态 / Status |
 | --- | --- | --- |
-| 4830 | Native-Resources（无脚本） | Virus scanning in progress / 正常扫描中 |
+| 4830 | Native-Resources（无脚本） | Manual download available / 已扫描，正常下载入口可用 |
 | 4826 | Native（旧脚本包） | Archived，原隔离状态保留 |
 | 4827 | MMV-Addon | Manual download available / 可下载 |
 | 4828 | Build Toolkit | Archived，原隔离状态保留；工具在 GitHub 提供 |
@@ -18,5 +18,7 @@
 参考 [Wylder sound effect pack 的资源目录](https://www.nexusmods.com/eldenringnightreign/mods/716?tab=files) 与 [Bloodborne Dash and Hybrid Combat SFX](https://www.nexusmods.com/eldenringnightreign/mods/787)，新增 `resources-only-r1` 交付：真正移除启动脚本，保留原有 24 个游戏资源和两份 ME3 配置，直接由已安装的 ME3 启动。新包没有源代码、脚本、EXE/DLL。原隔离上传没有删除或改名；资源包装的扫描结果需以平台实际状态为准。包摘要与验证范围见 [VALIDATION.md](VALIDATION.md)。
 
 The data-only packaging revision follows the ME3/resource distribution used by the referenced mods. It removes launcher scripts entirely and retains byte-identical game resources. The exact cause of the original quarantine remains unconfirmed; a successful revised upload would not establish a moderator decision about those archived files.
+
+最终核对：当前主包 Native-Resources、MMV 附加包与默认 WAV 的三个 Manual download 入口均已出现；新主包 VirusTotal 链接的 SHA-256 与本地和 GitHub 一致。旧归档隔离状态未变，无需为正常资源下载发送复核邮件。Final check: all three current files expose normal manual-download controls; the new main artifact's displayed SHA-256 matches the local/GitHub archive. Original archived quarantine states remain unchanged. No support email was sent.
 
 原隔离文件如需解除，Nexus 要求联系支持或管理员，见 [官方说明](https://help.nexusmods.com/article/117-why-has-my-mod-been-quarantined)。用户选择先采用常见资源包方式；复核邮件仅存草稿，尚未发送。
