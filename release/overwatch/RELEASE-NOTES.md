@@ -1,5 +1,9 @@
 # Nightreign × Overwatch Ultimate Voices 0.1.0 Beta
 
+[Nexus Mods / N 网下载](https://www.nexusmods.com/eldenringnightreign/mods/960) · [中文 README](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/README.md) · [English README](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/README.en.md)
+
+Nexus status / N 网状态 (2026-11-01): Native and Build Toolkit are automatically quarantined pending moderator review; MMV and Audio Sources are downloadable. The same original artifacts and checksums are published here. / Native 与构建工具被自动隔离，待平台人工复核；MMV 与默认 WAV 可下载。[详细状态 / Details](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/release/overwatch/PUBLICATION.md)。
+
 十角色守望中文大招播报，保留蓄力、爆炸和命中音效。守护者、铁眼起手播报，学者收招播报。采用游戏原生事件和本地声库；谁安装谁使用本机的声音，无需强制队友安装。
 
 ## 中文

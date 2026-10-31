@@ -1,6 +1,9 @@
 [size=5][b]Nightreign × Overwatch Ultimate Voices[/b][/size]
 [b]黑夜君临 · 守望中文大招播报 / Chinese ultimate callouts[/b]
 
+[b]文件状态 / File status — 2026-11-01[/b]
+Native 与 Build Toolkit 正在等待 Nexus 自动隔离后的人工复核；MMV 与 Audio Sources 可下载。隔离原因尚未确认，原上传已保留供复核。Native and Build Toolkit are quarantined pending moderator review; MMV and Audio Sources are downloadable. The specific cause is not yet confirmed. [url=https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/release/overwatch/PUBLICATION.md]当前状态、源码与验证记录 / Status, source and validation[/url]
+
 为十名角色加入选定的守望先锋中文大招语音。谁安装谁使用本机声音，不强制队友安装；保留蓄力、爆炸与命中音效。普通玩家直接下载成品，不需要守望安装、提取工具或编译环境。
 
 [size=4][b]中文安装说明[/b][/size]

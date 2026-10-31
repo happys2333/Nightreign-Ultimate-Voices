@@ -8,7 +8,7 @@
 
 Prebuilt Chinese Overwatch ultimate callouts for all ten Nightfarers, with native local playback and preserved skill effects. Guardian/Ironeye speak at action start; Scholar at recovery. Teammates do not need to install the mod, and no voice files are transmitted.
 
-**[English installation guide](README.en.md)** · **[自定义语音 / Custom audio](docs/CUSTOM-AUDIO.md)** · **[下载 / Downloads](https://github.com/happys2333/Nightreign-Ultimate-Voices/releases/tag/v0.1.0)**
+**[English installation guide](README.en.md)** · **[自定义语音 / Custom audio](docs/CUSTOM-AUDIO.md)** · **[N 网 / Nexus Mods](https://www.nexusmods.com/eldenringnightreign/mods/960)** · **[GitHub 下载 / Downloads](https://github.com/happys2333/Nightreign-Ultimate-Voices/releases/tag/v0.1.0)**
 
 ## 下载并选择版本 / Choose your download
 
@@ -22,6 +22,8 @@ Prebuilt Chinese Overwatch ultimate callouts for all ten Nightfarers, with nativ
 | **Audio-Sources.zip** | 十角色默认 WAV，方便只替换其中一个角色或恢复默认。Optional editable default WAVs. |
 
 **Native 和 MMV 二选一，不能同时加载。** `Audio-Sources` 不是独立可运行模组，也不需要放进游戏目录。全部下载见上面的 Release 页面。
+
+Nexus 状态（2026-11-01）：页面已公开，Native 与 Build Toolkit 被平台自动隔离，正在准备人工复核；MMV 与 Audio Sources 可下载。请留意文件页的审核提示。GitHub Release 保留相同的已发布原件与 SHA-256，源码和验证记录也已公开。
 
 ## 普通玩家安装
 

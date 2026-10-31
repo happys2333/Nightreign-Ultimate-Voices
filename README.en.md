@@ -2,13 +2,15 @@
 
 ![Nightreign × Overwatch Ultimate Voices](release/overwatch/media/cover.png)
 
-**Chinese Overwatch ultimate callouts for all ten Nightfarers.** Native local playback, preserved skill effects, and a supported MMV add-on. [中文说明](README.md) · [Downloads](https://github.com/happys2333/Nightreign-Ultimate-Voices/releases/tag/v0.1.0) · [Custom audio](docs/CUSTOM-AUDIO.md#english)
+**Chinese Overwatch ultimate callouts for all ten Nightfarers.** Native local playback, preserved skill effects, and a supported MMV add-on. [中文说明](README.md) · [Nexus Mods](https://www.nexusmods.com/eldenringnightreign/mods/960) · [GitHub Downloads](https://github.com/happys2333/Nightreign-Ultimate-Voices/releases/tag/v0.1.0) · [Custom audio](docs/CUSTOM-AUDIO.md#english)
 
 ## Download
 
 **v0.1.0 Beta targets Nightreign file version 1.3.3.0.** The prebuilt mod requires the game and [ME3](https://github.com/garyttierney/me3/releases). No Overwatch installation, Python, Git, uv or SDK is required for ordinary use. Supply your own working Seamless Co-op installation for co-op.
 
 Choose **Native.zip** for the stock player animation base, or **MMV-Addon.zip** for the specifically supported existing MMVWeaponsMerge setup. They are mutually exclusive. **Build-Toolkit.zip** and **Audio-Sources.zip** are optional downloads for customization/development; the latter contains editable default WAVs and is not a standalone mod.
+
+Nexus status (1 November 2026): the page is live. Native and Build Toolkit are automatically quarantined pending moderator review; MMV and Audio Sources are downloadable. Check the file-page review notices. The same original artifacts, SHA-256 checksums, source and validation records remain published on GitHub.
 
 ## Native installation
 
