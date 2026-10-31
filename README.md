@@ -16,24 +16,24 @@ Prebuilt Chinese Overwatch ultimate callouts for all ten Nightfarers, with nativ
 
 | 文件 / File | 适用人群 / Use |
 | --- | --- |
-| **Native.zip** | 原生玩家动画环境；附离线和无缝配置。For the stock player animation base. |
+| **Native-Resources.zip** | 推荐原生版：资源与 ME3 配置，直接打开 `.me3`，不含启动脚本。Recommended stock-animation package. |
 | **MMV-Addon.zip** | 指定版本 MMVWeaponsMerge 的现有安装。Add to your existing supported MMV profile. |
 | **Build-Toolkit.zip** | 自定义音频或维护源码时使用。Optional source/build toolkit. |
 | **Audio-Sources.zip** | 十角色默认 WAV，方便只替换其中一个角色或恢复默认。Optional editable default WAVs. |
 
 **Native 和 MMV 二选一，不能同时加载。** `Audio-Sources` 不是独立可运行模组，也不需要放进游戏目录。全部下载见上面的 Release 页面。
 
-Nexus 状态（2026-11-01）：页面已公开，Native 与 Build Toolkit 被平台自动隔离，正在准备人工复核；MMV 与 Audio Sources 可下载。请留意文件页的审核提示。GitHub Release 保留相同的已发布原件与 SHA-256，源码和验证记录也已公开。
+Nexus 主包采用游戏资源与 ME3 配置的交付方式；构建工具在 GitHub 提供。原始 `Native.zip`（含启动脚本）作为历史版本保留，新安装请选择 `Native-Resources.zip`。平台当前扫描/下载状态见 [发布记录](release/overwatch/PUBLICATION.md)，各包均附 SHA-256。
 
 ## 普通玩家安装
 
 ### Native 原生版
 
 1. 安装 ME3，启动 Steam，将成品整个文件夹解压到自己的模组目录。
-2. 离线单人：双击 `Launch.cmd` 或 `UltimateVoices.me3`。
-3. 无缝联机：把自己的完整 `SeamlessCoop` 文件夹放在启动器旁，使 `SeamlessCoop/nrsc.dll` 存在，再运行 `Launch-Seamless.cmd`。预设使用默认 `NR0000.co2`；自定义存档扩展或其他模组请沿用自己的配置副本。
+2. 离线单人：通过 ME3 打开 `UltimateVoices.me3`（安装了文件关联时可双击）。也可在包目录执行 `me3 launch -g nightreign -p ".\UltimateVoices.me3"`。
+3. 无缝联机：把自己的完整 `SeamlessCoop` 文件夹放在 `.me3` 旁，使 `SeamlessCoop/nrsc.dll` 存在，再通过 ME3 打开 `UltimateVoices-Seamless.me3`。预设使用默认 `NR0000.co2`；自定义存档扩展或其他模组请沿用自己的配置副本。
 
-文件夹整体可以移动；保持 `.me3`、启动器和 `mod/` 在一起。不要覆盖游戏归档，也不要通过普通官方匹配启动。
+文件夹整体可以移动；保持 `.me3` 和 `mod/` 在一起。新资源包没有 CMD/BAT/PowerShell 启动脚本。不要覆盖游戏归档，也不要通过普通官方匹配启动。详见 [原生资源包教程](release/overwatch/README-Native-Resources.zh-CN.md)。
 
 ### MMV 附加版
 

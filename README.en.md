@@ -8,17 +8,17 @@
 
 **v0.1.0 Beta targets Nightreign file version 1.3.3.0.** The prebuilt mod requires the game and [ME3](https://github.com/garyttierney/me3/releases). No Overwatch installation, Python, Git, uv or SDK is required for ordinary use. Supply your own working Seamless Co-op installation for co-op.
 
-Choose **Native.zip** for the stock player animation base, or **MMV-Addon.zip** for the specifically supported existing MMVWeaponsMerge setup. They are mutually exclusive. **Build-Toolkit.zip** and **Audio-Sources.zip** are optional downloads for customization/development; the latter contains editable default WAVs and is not a standalone mod.
+Choose **Native-Resources.zip** for the stock player animation base, or **MMV-Addon.zip** for the specifically supported existing MMVWeaponsMerge setup. They are mutually exclusive. **Build-Toolkit.zip** and **Audio-Sources.zip** are optional downloads for customization/development; the latter contains editable default WAVs and is not a standalone mod.
 
-Nexus status (1 November 2026): the page is live. Native and Build Toolkit are automatically quarantined pending moderator review; MMV and Audio Sources are downloadable. Check the file-page review notices. The same original artifacts, SHA-256 checksums, source and validation records remain published on GitHub.
+The Nexus main download provides game resources and ME3 profiles; build tools are available on GitHub. The original **Native.zip** with launcher scripts is retained as a legacy artifact; new installations should choose **Native-Resources.zip**. Check the [publication record](release/overwatch/PUBLICATION.md) for current platform scanning/download status. Each archive has SHA-256 checksums.
 
 ## Native installation
 
 1. Install ME3, start Steam and extract the whole mod folder outside the game installation.
-2. Offline solo: run `Launch.cmd` or `UltimateVoices.me3`.
-3. Seamless Co-op: copy your complete `SeamlessCoop` folder beside the launcher so that `SeamlessCoop/nrsc.dll` exists, then run `Launch-Seamless.cmd`. The preset uses default `NR0000.co2`; use your own profile copy for a different extension, extra mods or custom settings.
+2. Offline solo: open `UltimateVoices.me3` using ME3 (double-click if file associations are installed), or run `me3 launch -g nightreign -p ".\UltimateVoices.me3"` from the extracted folder.
+3. Seamless Co-op: copy your complete `SeamlessCoop` folder beside the profiles so that `SeamlessCoop/nrsc.dll` exists, then open `UltimateVoices-Seamless.me3` using ME3. The preset uses default `NR0000.co2`; use your own profile copy for a different extension, extra mods or custom settings.
 
-The paths are relative. Keep the profiles, launchers and `mod/` together when moving the folder. Do not overwrite game archives or use regular official matchmaking.
+The paths are relative. Keep the profiles and `mod/` together when moving the folder. The resource package contains no CMD/BAT/PowerShell launcher. Do not overwrite game archives or use regular official matchmaking. See the [full resource-package guide](release/overwatch/README-Native-Resources.en.md).
 
 ## MMV installation
 

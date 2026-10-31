@@ -1,8 +1,8 @@
 [size=5][b]Nightreign × Overwatch Ultimate Voices[/b][/size]
 [b]黑夜君临 · 守望中文大招播报 / Chinese ultimate callouts[/b]
 
-[b]文件状态 / File status — 2026-11-01[/b]
-Native 与 Build Toolkit 正在等待 Nexus 自动隔离后的人工复核；MMV 与 Audio Sources 可下载。隔离原因尚未确认，原上传已保留供复核。Native and Build Toolkit are quarantined pending moderator review; MMV and Audio Sources are downloadable. The specific cause is not yet confirmed. [url=https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/release/overwatch/PUBLICATION.md]当前状态、源码与验证记录 / Status, source and validation[/url]
+[b]交付调整 / Packaging revision — resources-only-r1[/b]
+原生主包为 Native-Resources：游戏资源与 ME3 配置，不附 CMD/BAT/PowerShell 启动脚本，直接通过 ME3 打开 .me3。构建工具在 GitHub 提供；原含脚本 Native 与工具包保留在历史归档。Native-Resources provides the same game resources and ME3 profiles without launcher scripts. Build tools remain on GitHub; previous script-containing uploads are retained in archive history. [url=https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/release/overwatch/PUBLICATION.md]当前扫描/下载状态及验证记录 / Current scan/download status and validation[/url]
 
 为十名角色加入选定的守望先锋中文大招语音。谁安装谁使用本机声音，不强制队友安装；保留蓄力、爆炸与命中音效。普通玩家直接下载成品，不需要守望安装、提取工具或编译环境。
 
@@ -10,7 +10,7 @@ Native 与 Build Toolkit 正在等待 Nexus 自动隔离后的人工复核；MMV
 适用：Windows Steam 黑夜君临文件版本 [b]1.3.3.0[/b]，需另装 [url=https://github.com/garyttierney/me3/releases]Mod Engine 3[/url]。Native 与 MMV-Addon [b]二选一[/b]，不可同时加载。请用离线或自己已有的无缝配置启动。
 
 [b]Native 原生版[/b]
-将 UltimateVoices-Overwatch 整个文件夹解压到游戏目录之外，保持启动器、.me3 和 mod/ 在一起。启动 Steam 后，离线运行 Launch.cmd。无缝用户把自己的完整 SeamlessCoop 文件夹放在启动器旁，确认 SeamlessCoop/nrsc.dll 存在，再运行 Launch-Seamless.cmd。内置无缝配置使用 NR0000.co2；自定义存档扩展和其他模组请沿用自己的配置副本。此包不附无缝 DLL。
+下载 Native-Resources，将 UltimateVoices-Overwatch 整个文件夹解压到游戏目录之外，保持 .me3 和 mod/ 在一起。启动 Steam 后，用 ME3 打开 UltimateVoices.me3（安装文件关联时可双击）。无缝用户把自己的完整 SeamlessCoop 文件夹放在 .me3 旁，确认 SeamlessCoop/nrsc.dll 存在，再用 ME3 打开 UltimateVoices-Seamless.me3。内置无缝配置使用 NR0000.co2；自定义存档扩展和其他模组请沿用自己的配置副本。不附无缝 DLL 或启动脚本。
 
 [b]MMV-Addon 附加版[/b]
 适用于已经装好指定 MMVWeaponsMerge 的玩家。把 UltimateVoices-MMV 放在现有 .me3 旁，复制原配置，把 ME3-PACKAGE.txt 的条目追加到副本末尾；按自己的包 id 和路径调整，再用副本启动。包含该 MMV 基底上修改的动画，不是完整 MMV，不附其余 MMV 资源。
@@ -44,7 +44,7 @@ Selected Chinese Overwatch ultimate callouts for all ten Nightfarers. Each insta
 
 [b]Requirements and downloads[/b]
 Windows Steam Nightreign [b]file version 1.3.3.0[/b] and [url=https://github.com/garyttierney/me3/releases]Mod Engine 3[/url]. Choose [b]Native OR MMV-Addon[/b]. Prebuilt users do not need Overwatch, extraction tools, Git, Python or an SDK.
-Native: extract the whole UltimateVoices-Overwatch folder outside the game directory. Start Steam, then Launch.cmd for offline solo. For seamless co-op, supply your complete SeamlessCoop folder beside the launcher, with SeamlessCoop/nrsc.dll, then run Launch-Seamless.cmd. The preset uses NR0000.co2; retain your own profile settings for other save extensions or mods. No co-op DLL is included.
+Native-Resources: extract the whole UltimateVoices-Overwatch folder outside the game directory. Start Steam, then open UltimateVoices.me3 using ME3 (double-click if file associations are installed). For seamless co-op, supply your complete SeamlessCoop folder beside the profiles, with SeamlessCoop/nrsc.dll, then open UltimateVoices-Seamless.me3 using ME3. The preset uses NR0000.co2; retain your own profile settings for other save extensions or mods. No co-op DLL or launcher script is included.
 MMV-Addon: requires your existing supported MMVWeaponsMerge installation. Put UltimateVoices-MMV beside your original ME3 profile, copy the profile, append ME3-PACKAGE.txt to the copy, adjust paths/package IDs, and launch the copy. The required unpatched MMV animation input hash is shown above. This is not compatibility with every MMV version; the included animation derives from that specified MMV base, and the rest of MMV is required separately.
 Do not combine variants. Mods replacing the same banks, sound catalogs or player animation require merging. Use offline or your working seamless profile, rather than regular official matchmaking.
 

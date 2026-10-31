@@ -1,5 +1,9 @@
 # 发布包校验 / Release validation — 2026-11-01
 
+新增 Native-Resources（`resources-only-r1`）：36,862,706 bytes，34 文件，SHA-256 `09f5a5e0e4e9912b49d307d2b6c72695e5fe32bf15f1fbef68d1087bcdb731c4`。与下表 Native 相比，24 个游戏资源逐字节相同，去掉两个 CMD 启动脚本，改用专门的中英安装说明；无新增可执行代码。ZIP CRC、内部/外部摘要、允许后缀清单和移动到含空格目录后的两份 ME3 配置解析通过。独立审查无重要问题，未启动游戏。
+
+Native-Resources contains the same 24 game resources and two profiles. Only launcher scripts are removed and bilingual instructions are adjusted. Hash/CRC, the data/document allowlist and relocated ME3 profile parsing passed. The original artifacts below remain unchanged.
+
 | 变体 | ZIP 大小 | 文件数 | SHA-256 |
 | --- | ---: | ---: | --- |
 | Native | 36,864,015 bytes | 36 | `4497c6ed3c72bbec8c49b78b08392640da5de30afd041f4b8a4141b7e6e81627` |

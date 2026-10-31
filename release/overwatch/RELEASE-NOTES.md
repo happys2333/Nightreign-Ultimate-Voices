@@ -2,7 +2,7 @@
 
 [Nexus Mods / N 网下载](https://www.nexusmods.com/eldenringnightreign/mods/960) · [中文 README](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/README.md) · [English README](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/README.en.md)
 
-Nexus status / N 网状态 (2026-11-01): Native and Build Toolkit are automatically quarantined pending moderator review; MMV and Audio Sources are downloadable. The same original artifacts and checksums are published here. / Native 与构建工具被自动隔离，待平台人工复核；MMV 与默认 WAV 可下载。[详细状态 / Details](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/release/overwatch/PUBLICATION.md)。
+Packaging revision / 交付调整 (`resources-only-r1`, 2026-11-01): use **Native-Resources.zip** for a new stock-animation installation. It provides ME3 profiles without launcher scripts; all 24 game resources match the original Native archive. / 新安装使用 Native-Resources，直接通过 ME3 打开配置；不附启动脚本，24 个游戏资源与原生包完全一致。构建工具继续在 GitHub 提供。[当前平台扫描/下载状态 / Current platform status](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/release/overwatch/PUBLICATION.md)。
 
 十角色守望中文大招播报，保留蓄力、爆炸和命中音效。守护者、铁眼起手播报，学者收招播报。采用游戏原生事件和本地声库；谁安装谁使用本机的声音，无需强制队友安装。
 
@@ -12,12 +12,12 @@ Nexus status / N 网状态 (2026-11-01): Native and Build Toolkit are automatica
 
 | 下载 | 用途 |
 | --- | --- |
-| `Nightreign-Overwatch-Voices-0.1.0-Native.zip` | 原生动画环境；内附离线/无缝启动配置。 |
+| `Nightreign-Overwatch-Voices-0.1.0-Native-Resources.zip` | 推荐原生包；资源和离线/无缝 ME3 配置，无启动脚本。 |
 | `Nightreign-Overwatch-Voices-0.1.0-MMV-Addon.zip` | 指定 MMVWeaponsMerge 基底；追加到自己已可用的配置。 |
 | `Nightreign-Ultimate-Voices-0.1.0-Build-Toolkit.zip` | 可选自定义语音构建工具，另需 Git、uv、.NET 9 SDK。 |
 | `Nightreign-Overwatch-Voices-0.1.0-Audio-Sources.zip` | 可选十角色默认 WAV，方便只替换一个角色并保留其余默认。 |
 
-**Native 与 MMV 二选一。** MMV 附加包要求未应用本语音补丁的 `chr/c0000.anibnd.dcx` SHA-256 为 `0eafca3631ddbbf3b2ec67edb49068bdc4ebcf5e4d48b2b1720a0a1c2921be69`。包含此基底上修改的动画，仍需原 MMV 其余资源，不兼容任意 MMV 版本。无缝 DLL 需自备；请阅读压缩包内说明并用离线/无缝配置启动。
+**Native 与 MMV 二选一。** 原 `Native.zip` 含启动脚本，作为历史交付保留；新安装选 Native-Resources。MMV 附加包要求未应用本语音补丁的 `chr/c0000.anibnd.dcx` SHA-256 为 `0eafca3631ddbbf3b2ec67edb49068bdc4ebcf5e4d48b2b1720a0a1c2921be69`。包含此基底上修改的动画，仍需原 MMV 其余资源，不兼容任意 MMV 版本。无缝 DLL 需自备；请阅读压缩包内说明并用离线/无缝配置启动。
 
 [安装与角色映射](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/README.md) · [替换音频、调整音量、恢复默认（中英）](https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/docs/CUSTOM-AUDIO.md)
 
@@ -29,7 +29,7 @@ Chinese Overwatch ultimate callouts for all ten Nightfarers, retaining charge, e
 
 Requires Windows Steam Nightreign **file version 1.3.3.0** and [ME3](https://github.com/garyttierney/me3/releases). Prebuilt users do not need Overwatch, extraction tools, Git, Python or an SDK.
 
-- **Native.zip:** stock player animation base; offline and seamless profiles included. Supply your own Seamless Co-op folder/DLL if needed.
+- **Native-Resources.zip:** recommended stock-animation package; open the offline/seamless profiles using ME3. No launcher scripts. Supply your own Seamless Co-op folder/DLL if needed. The earlier Native.zip with launchers remains a legacy artifact.
 - **MMV-Addon.zip:** append to your existing supported MMV profile; exact unpatched animation input SHA-256 shown above. Contains a patched animation derived from that base and requires the rest of MMV separately. Not every MMV version is supported.
 - **Build-Toolkit.zip:** optional source/build tooling for customization; requires Git, uv and the .NET 9 SDK.
 - **Audio-Sources.zip:** optional ten default editable WAVs. Copy `voices/` into the toolkit root, then replace only the desired file and rebuild.

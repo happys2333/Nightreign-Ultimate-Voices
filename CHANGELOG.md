@@ -2,6 +2,8 @@
 
 ## 0.1.0 Beta
 
+- Packaging revision `resources-only-r1`: Native-Resources uses ME3 profiles directly with no launcher scripts; all 24 game resources are unchanged. / 原生资源包直接使用 ME3 配置，不附启动脚本；24 个游戏资源不变。
+
 - Ten prebuilt Chinese Overwatch ultimate callouts / 十角色守望中文大招播报。
 - Guardian and Ironeye at accepted action start; Scholar at recovery / 守护者、铁眼起手，学者收招。
 - Dedicated original shout isolation while preserving skill effects / 移除已定位原喊声，保留技能音效。
