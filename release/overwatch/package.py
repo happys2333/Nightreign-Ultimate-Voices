@@ -16,7 +16,10 @@ SOURCES={
 }
 sha=lambda data:hashlib.sha256(data).hexdigest()
 
-def assemble(variant,built):
+def assemble(variant,built,resource_only=False):
+    if resource_only and variant!='Native':
+        raise ValueError('--resource-only is only supported with Native')
+    artifact_variant='Native-Resources' if resource_only else variant
     verify_package(built)
     report=json.loads((built/'build-report.json').read_text(encoding='utf-8'))
     assert report['game_version']=='1.3.3.0'
@@ -40,20 +43,23 @@ def assemble(variant,built):
     assert len([p for p in resources if p.startswith('mod/sd/wem/') and p.endswith('.wem')])==11
     templates=ROOT/'release/overwatch'
     files=dict(resources)
-    flavor='Native' if variant=='Native' else 'MMV'
+    flavor='Native-Resources' if resource_only else ('Native' if variant=='Native' else 'MMV')
     for language in ['zh-CN','en']:
         files[f'README.{language}.md']=(templates/f'README-{flavor}.{language}.md').read_bytes()
     files['CREDITS.txt']=(templates/'CREDITS.txt').read_bytes()
     files['LICENSE']=(ROOT/'LICENSE').read_bytes()
     files['CUSTOM-AUDIO.md']=(ROOT/'docs/CUSTOM-AUDIO.md').read_bytes()
     if variant=='Native':
-        for name in ['Launch.cmd','Launch-Seamless.cmd','UltimateVoices.me3','UltimateVoices-Seamless.me3']:
+        native_files=['UltimateVoices.me3','UltimateVoices-Seamless.me3']
+        if not resource_only:
+            native_files+=['Launch.cmd','Launch-Seamless.cmd']
+        for name in native_files:
             files[name]=(templates/name).read_bytes()
         files['SeamlessCoop/README.txt']=b'Copy your own complete SeamlessCoop folder here if using the bundled co-op profile. No nrsc.dll is included.\n'
     else:
         files['ME3-PACKAGE.txt']=(templates/'ME3-PACKAGE.txt').read_bytes()
     public={
-        'name':'Nightreign x Overwatch Ultimate Voices','version':'0.1.0','variant':variant,
+        'name':'Nightreign x Overwatch Ultimate Voices','version':'0.1.0','variant':artifact_variant,
         'stage':'Beta','game_file_version':'1.3.3.0',
         'audio_language':'zhCN','characters':10,'voice_mounts':11,
         'animation_source_sha256':report['animation']['source_sha256'],
@@ -63,15 +69,20 @@ def assemble(variant,built):
         'gameplay_feedback':'MMV variant: local tester reported no issues observed on 2026-10-28. Native variant not separately game-tested.',
         'mmv_derived_animation_included':variant=='MMV-Addon',
     }
+    if resource_only:
+        public['packaging_revision']='resources-only-r1'
+        public['launch_method']='Open a bundled .me3 profile with the separately installed Mod Engine 3'
     files['RELEASE.json']=json.dumps(public,ensure_ascii=False,indent=2).encode('utf-8')
     for name,data in files.items():
         assert Path(name).suffix.lower() not in {'.dll','.exe','.co2','.sl2','.pdb','.zip'}
+        if resource_only:
+            assert Path(name).suffix.lower() in {'.bnk','.wem','.dcx','.eib','.mobnkinfo','.me3','.md','.txt','.json',''}
         if Path(name).suffix.lower() in {'.txt','.md','.cmd','.me3','.json'}:
             text=data.decode('utf-8-sig')
             assert not any(s in text for s in ['D:\\codeWork','D:/codeWork','C:\\Users\\happy','C:/Users/happy'])
     files['SHA256SUMS.txt']=''.join(f'{sha(data)}  {name}\n' for name,data in sorted(files.items())).encode()
     output=ROOT/'dist/nexus';output.mkdir(parents=True,exist_ok=True)
-    archive=output/f'Nightreign-Overwatch-Voices-0.1.0-{variant}.zip'
+    archive=output/f'Nightreign-Overwatch-Voices-0.1.0-{artifact_variant}.zip'
     prefix='UltimateVoices-Overwatch/' if variant=='Native' else 'UltimateVoices-MMV/'
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for name,data in sorted(files.items()):
@@ -83,14 +94,15 @@ def assemble(variant,built):
         assert len(z.namelist())==len(files)
         for name,data in files.items():assert z.read(prefix+name)==data
     archive.with_suffix('.zip.sha256').write_text(f'{sha(archive.read_bytes())}  {archive.name}\n',encoding='ascii')
-    result={'variant':variant,'archive':archive.name,'bytes':archive.stat().st_size,'sha256':sha(archive.read_bytes()),'files':len(files),'resources':{name:sha(data) for name,data in resources.items()},'public_release_metadata':public}
+    result={'variant':artifact_variant,'archive':archive.name,'bytes':archive.stat().st_size,'sha256':sha(archive.read_bytes()),'files':len(files),'resources':{name:sha(data) for name,data in resources.items()},'public_release_metadata':public}
     receipt=ROOT/'local/overwatch-release';receipt.mkdir(parents=True,exist_ok=True)
-    (receipt/f'{variant}-archive-audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+    (receipt/f'{artifact_variant}-archive-audit.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({k:v for k,v in result.items() if k not in ['resources','public_release_metadata']},indent=2))
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--variant',required=True,choices=SOURCES)
     parser.add_argument('--built',required=True,type=Path)
+    parser.add_argument('--resource-only',action='store_true',help='Native game resources and ME3 profiles, without launcher scripts')
     args=parser.parse_args()
-    assemble(args.variant,args.built.resolve())
+    assemble(args.variant,args.built.resolve(),args.resource_only)
