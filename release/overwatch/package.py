@@ -45,6 +45,7 @@ def assemble(variant,built):
         files[f'README.{language}.md']=(templates/f'README-{flavor}.{language}.md').read_bytes()
     files['CREDITS.txt']=(templates/'CREDITS.txt').read_bytes()
     files['LICENSE']=(ROOT/'LICENSE').read_bytes()
+    files['CUSTOM-AUDIO.md']=(ROOT/'docs/CUSTOM-AUDIO.md').read_bytes()
     if variant=='Native':
         for name in ['Launch.cmd','Launch-Seamless.cmd','UltimateVoices.me3','UltimateVoices-Seamless.me3']:
             files[name]=(templates/name).read_bytes()
@@ -53,12 +54,12 @@ def assemble(variant,built):
         files['ME3-PACKAGE.txt']=(templates/'ME3-PACKAGE.txt').read_bytes()
     public={
         'name':'Nightreign x Overwatch Ultimate Voices','version':'0.1.0','variant':variant,
-        'stage':'Beta runtime candidate','game_file_version':'1.3.3.0',
+        'stage':'Beta','game_file_version':'1.3.3.0',
         'audio_language':'zhCN','characters':10,'voice_mounts':11,
         'animation_source_sha256':report['animation']['source_sha256'],
         'animation_sha256':report['animation']['output_sha256'],
         'runtime':report['runtime'],'functional_baseline':'9b723ad',
-        'prepared':'2026-10-29','public_upload_performed':False,
+        'prepared':'2026-11-01',
         'gameplay_feedback':'MMV variant: local tester reported no issues observed on 2026-10-28. Native variant not separately game-tested.',
         'mmv_derived_animation_included':variant=='MMV-Addon',
     }

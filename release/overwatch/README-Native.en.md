@@ -28,8 +28,8 @@ Each installed client uses its own resources. Teammates need not install the mod
 
 ## Status, conflicts and removal
 
-The local positive gameplay feedback applies to the tested MMV variant. This native candidate uses identical audio/catalog files and trigger settings on the original animation base. Its offline build and animation-restoration checks passed; it has not been separately game-tested in this preparation.
+The local positive gameplay feedback applies to the tested MMV variant. This native variant uses identical audio/catalog files and trigger settings on the original animation base. Its offline build and animation-restoration checks passed; it has not been separately game-tested in this release.
 
 Replaced resources include ten hero banks, added loose WEMs, two sound catalogs and c0000.anibnd.dcx. Do not remove the catalogs/animation to force compatibility: the retimed voices can become silent. There is no added project DLL, process, polling, runtime transcoding or network protocol; no frame-time benchmark or FPS improvement is claimed.
 
-Use your original profile to disable the mod, or remove its package entry from your profile copy. Custom audio requires a separate source toolkit rebuild; there is no in-game import/hot-reload interface. See CREDITS.txt. This is a prepared candidate; no Nexus upload has been performed.
+Use your original profile to disable the mod, or remove its package entry from your profile copy. Custom audio requires a separate source toolkit rebuild; there is no in-game import/hot-reload interface. See CREDITS.txt. For per-character WAV replacement and restoration, read CUSTOM-AUDIO.md (中文 / English).

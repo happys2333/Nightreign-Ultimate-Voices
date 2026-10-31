@@ -60,3 +60,10 @@ For bug reports include game/ME3 versions, character, solo/seamless setup, confl
 Launch your original profile to disable the mod. `uv run python -m nuv uninstall "dist\UltimateVoices"` removes only the tool-owned generated output and preserves input WAV files.
 
 Project code is GPL-3.0; see `LICENSE` and `THIRD_PARTY_NOTICES.md`. This does not grant redistribution rights to third-party game audio or other mods. Development used substantial AI-generated code under human-directed requirements, clip selection, and local testing. Publication text was also AI-drafted.
+
+
+## 替换单个角色 / Replace one character
+
+Read **CUSTOM-AUDIO.md** for the bilingual replacement guide. Optional **Audio-Sources.zip** from the project release supplies the default ten WAVs; copy its `voices/` into this toolkit and replace only the desired file before rebuilding.
+
+中英文操作见 **CUSTOM-AUDIO.md**。项目 Release 的可选 **Audio-Sources.zip** 提供十角色默认 WAV；将 `voices/` 复制到工具包根目录，只改目标角色文件，再重新构建即可。

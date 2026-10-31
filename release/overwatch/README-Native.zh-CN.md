@@ -60,4 +60,7 @@ path = "./UltimateVoices-Overwatch/mod"
 
 停用：使用原启动配置；通过原配置副本追加的玩家，移除对应 `packages` 条目即可。没有安装程序，不需运行卸载器。
 
-更换自定义语音需要单独的 Build Toolkit 重新构建，本成品包不提供游戏内导入/热切换界面。素材与代码说明见 `CREDITS.txt`。本次仅整理成品候选，尚未上传到 Nexus。
+更换自定义语音需要单独的 Build Toolkit 重新构建，本成品包不提供游戏内导入/热切换界面。素材与代码说明见 `CREDITS.txt`。按角色替换 WAV 与恢复默认步骤见 `CUSTOM-AUDIO.md`。
+
+
+自定义语音 / Custom audio: see CUSTOM-AUDIO.md for per-character WAV replacement, rebuilding and restoring defaults.

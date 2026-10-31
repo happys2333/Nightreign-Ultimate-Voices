@@ -1,9 +1,11 @@
-# 成品包校验 — 2026-10-29
+# 发布包校验 / Release validation — 2026-11-01
 
 | 变体 | ZIP 大小 | 文件数 | SHA-256 |
 | --- | ---: | ---: | --- |
-| Native | 36,859,931 bytes | 35 | `5babec25a1d1e3812f5ad537d531f1d386b3d91f07b9c771f4c31c50b4f561c8` |
-| MMV-Addon | 38,309,930 bytes | 31 | `71cb708886fcd74fdfe6630a5ba11ae7d4f9abe8f0a5de97fa8bdc25306748b3` |
+| Native | 36,864,015 bytes | 36 | `4497c6ed3c72bbec8c49b78b08392640da5de30afd041f4b8a4141b7e6e81627` |
+| MMV-Addon | 38,313,996 bytes | 32 | `74b381dae99c4407e05acbb95b13c700919a7bb45a8e7b86359cd215fd4a983f` |
+| Build-Toolkit | 131,762 bytes | 51 | `9a0c773775c6d224b9c7953c7c9e2110474bd3fd729d06be1f1d27ff3ddbb3b4` |
+| Audio-Sources | 3,811,327 bytes | 14 | `7d4f91ad74f84e208c85538d3d5de286d51bf4ccb21de3487912e1637603d623` |
 
 两包 ZIP CRC、内部 SHA256SUMS 和外部 `.zip.sha256` 均通过。分别包含 24 个游戏资源文件：十个角色声库、11 个本地媒体镜像、两个声音目录、一份动画包。十个 SBI 声库事件集合与实际 BNK 一致，11 个语音挂载点与媒体镜像核对通过。
 
@@ -15,4 +17,8 @@ MMV-Addon 的全部 24 个资源与现有已测 `dist/UltimateVoices-Overwatch` 
 
 不含私人路径/报告、存档、无缝 DLL、提取缓存、开发依赖或 SDK。MMV 包明确含指定 MMV 基底的派生动画，说明没有把它写成不含 MMV 资源或通用原生版本。
 
-独立审查未发现需要修正的打包或说明问题。用户正在使用的包没有修改。正向实机反馈对应 MMV 版，Native 候选只完成本页所列离线验证。本轮没有公开上传。私有详细收据：`local/overwatch-release/final-validation.json`。
+Audio Sources 十份默认 WAV 按实际配置转换后，与运行包 11 路 WEM 一致。另将 Build Toolkit 与 Audio Sources 解压到新目录，复制已核验的编译辅助工具，按教程执行离线 build/verify；生成的 24 个游戏资源与 Native 成品完全一致。此检查复用了已准备的辅助工具，没有重新联网安装 SDK。
+
+功能基线通过 103 项测试（本次发布准备已重新运行）。本轮只调整文档和打包，游戏功能代码未改动。用户正在使用的包没有修改。正向实机反馈对应 MMV 版，Native 只完成本页所列离线验证；完整角色分支、混装联机距离及帧时间矩阵仍未完成。这些校验不表示文件已公开上传。
+
+English: both runtime archives passed CRC, per-file hash, 11 media/route, catalog registration, independent animation restoration and relocated ME3 parsing checks. MMV matches the locally tested resources. A fresh toolkit/default-WAV extraction reproduced all 24 Native runtime resources using the prepared helper. No game was launched. Native has not completed a separate gameplay matrix.

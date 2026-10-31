@@ -21,6 +21,7 @@ for name in tracked:
 for name in ['README.en.md','README.zh-CN.md','OW-PRESET.md','THIRD_PARTY_NOTICES.md','CHANGELOG.md','START-HERE.txt']:
     files[name]=(root/'release/nexus'/name).read_bytes()
 files['README.md']=files['README.en.md']
+files['CUSTOM-AUDIO.md']=(root/'docs/CUSTOM-AUDIO.md').read_bytes()
 files['voices/README.txt']=b'Place your own PCM16 WAV files here; see README.en.md or README.zh-CN.md.\nNo game media is included.\n'
 files['RELEASE.json']=json.dumps({'name':'Nightreign Ultimate Voices - Local Build Toolkit','version':'0.1.0','stage':'Beta','functional_baseline':'9b723ad','prepared':'2026-10-28','game_file_version':'1.3.3.0','prebuilt_game_resources_included':False,'audio_included':False,'ai_code':'substantial generation; human-directed requirements and local testing','required_tools':['ME3','Git','uv','.NET 9 SDK'],'optional_ow_build':'2.25.0.1.154504N zhCN; requires .NET 10 SDK'},indent=2).encode()
 allowed={'.py','.json','.pem','.cmd','.toml','.lock','.ps1','.cs','.csproj','.md','.txt',''}

@@ -74,3 +74,10 @@ uv run python -m nuv build
 改用原启动配置即可停用。要清理本工具拥有的输出，运行 `uv run python -m nuv uninstall "dist\UltimateVoices"`；自定义输入 WAV 保留。
 
 项目代码按 `LICENSE` 中 GPL-3.0 发布。第三方工具见 `THIRD_PARTY_NOTICES.md`。这些许可不授予第三方游戏音频或其他模组资源的再分发权。代码开发大量使用生成式 AI，需求、声音选段与本机测试由用户指导；发布页文案也由 AI 起草。
+
+
+## 替换单个角色 / Replace one character
+
+Read **CUSTOM-AUDIO.md** for the bilingual replacement guide. Optional **Audio-Sources.zip** from the project release supplies the default ten WAVs; copy its `voices/` into this toolkit and replace only the desired file before rebuilding.
+
+中英文操作见 **CUSTOM-AUDIO.md**。项目 Release 的可选 **Audio-Sources.zip** 提供十角色默认 WAV；将 `voices/` 复制到工具包根目录，只改目标角色文件，再重新构建即可。

@@ -22,4 +22,4 @@ Third-party development binaries are not included. ME3 is installed separately.
 
 Development used substantial AI-generated code under human-directed
 requirements, audio selection and gameplay testing. Instructions were AI-drafted.
-This archive is a prepared runtime candidate. Publication is a later step.
+Custom audio and restoration: see CUSTOM-AUDIO.md (Chinese / English).

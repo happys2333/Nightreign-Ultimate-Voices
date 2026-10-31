@@ -1,0 +1,59 @@
+[size=5][b]Nightreign × Overwatch Ultimate Voices[/b][/size]
+[b]黑夜君临 · 守望中文大招播报 / Chinese ultimate callouts[/b]
+
+为十名角色加入选定的守望先锋中文大招语音。谁安装谁使用本机声音，不强制队友安装；保留蓄力、爆炸与命中音效。普通玩家直接下载成品，不需要守望安装、提取工具或编译环境。
+
+[size=4][b]中文安装说明[/b][/size]
+适用：Windows Steam 黑夜君临文件版本 [b]1.3.3.0[/b]，需另装 [url=https://github.com/garyttierney/me3/releases]Mod Engine 3[/url]。Native 与 MMV-Addon [b]二选一[/b]，不可同时加载。请用离线或自己已有的无缝配置启动。
+
+[b]Native 原生版[/b]
+将 UltimateVoices-Overwatch 整个文件夹解压到游戏目录之外，保持启动器、.me3 和 mod/ 在一起。启动 Steam 后，离线运行 Launch.cmd。无缝用户把自己的完整 SeamlessCoop 文件夹放在启动器旁，确认 SeamlessCoop/nrsc.dll 存在，再运行 Launch-Seamless.cmd。内置无缝配置使用 NR0000.co2；自定义存档扩展和其他模组请沿用自己的配置副本。此包不附无缝 DLL。
+
+[b]MMV-Addon 附加版[/b]
+适用于已经装好指定 MMVWeaponsMerge 的玩家。把 UltimateVoices-MMV 放在现有 .me3 旁，复制原配置，把 ME3-PACKAGE.txt 的条目追加到副本末尾；按自己的包 id 和路径调整，再用副本启动。包含该 MMV 基底上修改的动画，不是完整 MMV，不附其余 MMV 资源。
+支持的未应用语音补丁的 MMV 输入 chr/c0000.anibnd.dcx SHA-256：
+[code]0eafca3631ddbbf3b2ec67edb49068bdc4ebcf5e4d48b2b1720a0a1c2921be69[/code]
+不代表所有 MMV 版本兼容。修改相同声库、声音目录或玩家动画的模组需要合并，不要删掉本包动画/声音目录来强行兼容。
+
+[b]默认选段[/b]
+追踪者 → 安燃（敌方）
+守护者 → 末日铁拳（敌方“毁天灭地！”）
+铁眼 → 半藏（敌方）
+女爵 → 禅雅塔（友方“感受宁静。”）
+无赖 → 莱因哈特（敌方）
+复仇者 → 安娜（受强化者听到的“你被强化了！快上！”）
+隐士 → 血律（敌方）
+执行者 → 温斯顿（共用绝招启动主咆哮）
+学者 → 黑影（敌方）
+送葬者 → 死怨（敌方）
+
+守护者、铁眼在游戏接受大招并开始动作时播报；学者约 3.3 秒收招时播报。只隔离已定位的专用原喊声，保留技能音效。每个安装客户端使用自己的资源，未安装者不接收音频；能否听到远处队友仍取决于本机是否收到原生声音事件，完整混装联机/距离矩阵待验证。
+
+[b]替换自己的声音[/b]
+可选下载 Build-Toolkit 与 Audio-Sources，把后者 voices/ 复制到工具包根目录，替换目标角色同名 WAV 后重新构建。支持 PCM16 WAV、单/双声道、≤48 kHz、≤8 秒，音量可配置。教程包含恢复默认和排错步骤：[url=https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/docs/CUSTOM-AUDIO.md]中英自定义音频教程[/url]。普通玩家无需下载这两个可选文件。
+
+[b]状态与卸载[/b]
+0.1.0 Beta。MMV 成品资源与本机已测版本一致，测试者反馈暂未发现问题；Native 完成离线构建和动画恢复审计，尚未独立完成实机矩阵。功能基线通过 103 项自动化测试。游戏中无新增本项目 DLL、常驻进程、轮询、转码或网络协议；尚无帧时间基准。
+用原启动配置即可停用，或从自己的配置副本删除本包条目。问题请附角色、游戏/ME3 版本、Native/MMV 和重现步骤：[url=https://github.com/happys2333/Nightreign-Ultimate-Voices/issues]GitHub Issues[/url]。
+
+[size=4][b]English[/b][/size]
+Selected Chinese Overwatch ultimate callouts for all ten Nightfarers. Each installed client uses its own local resources; teammates are not required to install anything and no voice files are sent over the network. Charge, explosion and hit effects remain.
+
+[b]Requirements and downloads[/b]
+Windows Steam Nightreign [b]file version 1.3.3.0[/b] and [url=https://github.com/garyttierney/me3/releases]Mod Engine 3[/url]. Choose [b]Native OR MMV-Addon[/b]. Prebuilt users do not need Overwatch, extraction tools, Git, Python or an SDK.
+Native: extract the whole UltimateVoices-Overwatch folder outside the game directory. Start Steam, then Launch.cmd for offline solo. For seamless co-op, supply your complete SeamlessCoop folder beside the launcher, with SeamlessCoop/nrsc.dll, then run Launch-Seamless.cmd. The preset uses NR0000.co2; retain your own profile settings for other save extensions or mods. No co-op DLL is included.
+MMV-Addon: requires your existing supported MMVWeaponsMerge installation. Put UltimateVoices-MMV beside your original ME3 profile, copy the profile, append ME3-PACKAGE.txt to the copy, adjust paths/package IDs, and launch the copy. The required unpatched MMV animation input hash is shown above. This is not compatibility with every MMV version; the included animation derives from that specified MMV base, and the rest of MMV is required separately.
+Do not combine variants. Mods replacing the same banks, sound catalogs or player animation require merging. Use offline or your working seamless profile, rather than regular official matchmaking.
+
+[b]Voices and behavior[/b]
+Wylder → Anran (enemy); Guardian → Doomfist (enemy); Ironeye → Hanzo (enemy); Duchess → Zenyatta (friendly); Raider → Reinhardt (enemy); Revenant → Ana (friendly recipient); Recluse → Doctrine (enemy); Executor → Winston (shared primal activation main roar); Scholar → Sombra (enemy); Undertaker → Shion (enemy).
+Guardian and Ironeye speak at accepted animation start. Scholar speaks at recovery, around 3.3 seconds. Only audited dedicated original shouts are isolated. Remote/distant callouts depend on native events arriving at your client; the full mixed-install/distance matrix is not verified.
+
+[b]Custom audio, removal and status[/b]
+Optional Build-Toolkit plus Audio-Sources lets you replace one character while retaining the other defaults. Copy voices/ into the toolkit root, replace a same-named WAV and rebuild before gameplay. PCM16, mono/stereo, ≤48 kHz, ≤8 seconds. See [url=https://github.com/happys2333/Nightreign-Ultimate-Voices/blob/main/docs/CUSTOM-AUDIO.md]Custom audio guide (English / 中文)[/url]. No runtime hot reload.
+Use your original profile or remove this package entry to disable it. Beta 0.1.0: positive local gameplay feedback applies to MMV; Native passed offline build/restoration audits but lacks a separate full gameplay matrix. The functional baseline passed 103 automated tests. No added project DLL, resident process, polling, runtime transcoder or network protocol. No frame-time benchmark is claimed.
+
+[size=4][b]Credits / 致谢[/b][/size]
+Overwatch recordings and characters: Blizzard Entertainment and the respective rights holders/performers. Nightreign assets: FromSoftware / Bandai Namco. MMV animation base: MMVWeaponsMerge contributors. Original recordings, not voice clones. No official endorsement is claimed.
+Tools/research: ME3, SoulsFormatsNEXT, UXM, OWLib/TACTLib, vgmstream, Yonder, wwiser and DSAnimStudio contributors. Source code: GPL-3.0; this does not change ownership of third-party game media. Development used substantial AI-generated code under human-directed requirements, selection and testing; instructions were AI-drafted.
+[url=https://github.com/happys2333/Nightreign-Ultimate-Voices]Source, bilingual README and releases / 源码与中英说明[/url]

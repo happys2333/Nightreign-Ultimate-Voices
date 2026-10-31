@@ -14,4 +14,7 @@ There is no standalone launcher for this variant: it depends on your existing MM
 
 Mapping: Wylder/Anran, Guardian/Doomfist, Ironeye/Hanzo, Duchess/Zenyatta (friendly), Raider/Reinhardt, Recluse/Doctrine, Revenant/Ana (friendly recipient), Executor/Winston (shared activation roar), Scholar/Sombra, Undertaker/Shion. Other selected spoken clips use the enemy version. Guardian and Ironeye speak at accepted action start; Scholar at recovery around 3.3 seconds. Dedicated original shouts are isolated while skill effects remain.
 
-The local tester reported no issues observed on 28 October 2026. Full branch, mixed-install distance and frame-time matrices remain incomplete. Each installed client uses its own audio; unmodified teammates receive no voice-file transmission. Restore the original profile or remove the package entry to disable the add-on. Do not overwrite the original MMV folder. See CREDITS.txt. No public upload has been performed.
+The local tester reported no issues observed on 28 October 2026. Full branch, mixed-install distance and frame-time matrices remain incomplete. Each installed client uses its own audio; unmodified teammates receive no voice-file transmission. Restore the original profile or remove the package entry to disable the add-on. Do not overwrite the original MMV folder. See CREDITS.txt. Custom audio and restoration instructions: CUSTOM-AUDIO.md.
+
+
+自定义语音 / Custom audio: see CUSTOM-AUDIO.md for per-character WAV replacement, rebuilding and restoring defaults.
