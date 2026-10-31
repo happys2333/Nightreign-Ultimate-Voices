@@ -1,119 +1,79 @@
-# Nightreign Ultimate Voices
+# Nightreign × Overwatch Ultimate Voices
 
-在《艾尔登法环 黑夜君临》中释放绝招时，播放该角色的自定义语音。支持十名角色，附中文测试播报。
+**黑夜君临守望中文大招播报 · Chinese ultimate callouts for NIGHTREIGN**
 
-本次更新只移除已定位的大招原喊声，保留蓄力、爆炸和命中音效。守护者、铁眼改为大招动作开始播报，学者改为收招时播报。具体事件、隔离范围和验证边界见 [喊声与时机说明](docs/voice-isolation.md)。
+![Nightreign × Overwatch Ultimate Voices](release/overwatch/media/cover.png)
 
-针对改时机后三名角色无声的反馈，已补齐新增声音的游戏索引，并把四条动画触发改为原生大招使用的完整 BySlot 一次性播放格式。2026-10-28 用户反馈当前修正版“目前测没啥问题”；详见 [触发兼容调查](docs/retimed-callout-trigger.md)。此反馈不扩展为全部联机与距离边界验收。
+为十名角色加入选定的守望先锋中文大招语音。守护者、铁眼起手播报，学者收招播报；保留蓄力、爆炸和命中音效。每台安装电脑使用自己的本地声音，无需队友为了听见你的播报而安装模组。
 
-已加入用户指定的十角色本地 OW 导入组件，见 [OW 导入说明](docs/overwatch.md)。守护者使用末日铁拳敌方“毁天灭地！”，女爵使用禅雅塔友方“感受宁静”。针对无赖听不到播报的问题，已补充事件预备加载需要的本地媒体副本，并校准过轻的播报音量。独立引擎验证与实机反馈分开记录，详见 [验证记录](docs/verification.md)。旧的替换原声诊断包不能作为正式包使用。
+Prebuilt Chinese Overwatch ultimate callouts for all ten Nightfarers, with native local playback and preserved skill effects. Guardian/Ironeye speak at action start; Scholar at recovery. Teammates do not need to install the mod, and no voice files are transmitted.
 
-Nexus 发布资料、可复制的中英文介绍和发布流程见 [发布准备](release/nexus/UPLOAD.zh-CN.md)。公开工具包不包含提取的游戏资源或预制声音包，需在目标电脑构建；本机 `dist/` 不应直接作为公共下载包。
+**[English installation guide](README.en.md)** · **[自定义语音 / Custom audio](docs/CUSTOM-AUDIO.md)** · **[下载 / Downloads](https://github.com/happys2333/Nightreign-Ultimate-Voices/releases/tag/v0.1.0)**
 
-2026-10-29 按用户要求另行整理了内置守望语音的 **Native 成品主包** 和 **MMV 成品附加包**，均无需下载者编译，见 [成品整理说明](release/overwatch/PREPARED.zh-CN.md)。本机正在使用的测试包保持不变；本轮只整理文件，尚未公开发布。
+## 下载并选择版本 / Choose your download
 
-本模组生成本地 Wwise 角色声库及少量动画声音事件，通过游戏原生机制播放。**谁安装谁听见**：安装者使用自己的语音包听取本机收到的自身及队友绝招事件；没安装的队友继续听原有声音。无需语音传输或额外联机协议，也无需要求队友安装。
+首发为 **0.1.0 Beta**，支持黑夜君临 **文件版本 1.3.3.0**。成品只需要游戏与 [Mod Engine 3](https://github.com/garyttierney/me3/releases)，无需守望安装、Python、Git、uv 或 SDK。无缝联机用户另备自己已经可用的 Seamless Co-op。
 
-当前是 **1.3.3.0 本地测试版**。已验证原生/MMV 事件映射、声库格式及原音效保留；混装无缝联机、远距离事件可达性和全部角色游戏内边界仍需实测。详细状态见 [验证记录](docs/verification.md)，不能把静态声库验证理解为已完成双客户端联机验收。
+| 文件 / File | 适用人群 / Use |
+| --- | --- |
+| **Native.zip** | 原生玩家动画环境；附离线和无缝配置。For the stock player animation base. |
+| **MMV-Addon.zip** | 指定版本 MMVWeaponsMerge 的现有安装。Add to your existing supported MMV profile. |
+| **Build-Toolkit.zip** | 自定义音频或维护源码时使用。Optional source/build toolkit. |
+| **Audio-Sources.zip** | 十角色默认 WAV，方便只替换其中一个角色或恢复默认。Optional editable default WAVs. |
 
-## 本机直接使用
+**Native 和 MMV 二选一，不能同时加载。** `Audio-Sources` 不是独立可运行模组，也不需要放进游戏目录。全部下载见上面的 Release 页面。
 
-已经为本机的“地图扩容＋无缝联机”配置生成了独立启动包：
+## 普通玩家安装
+
+### Native 原生版
+
+1. 安装 ME3，启动 Steam，将成品整个文件夹解压到自己的模组目录。
+2. 离线单人：双击 `Launch.cmd` 或 `UltimateVoices.me3`。
+3. 无缝联机：把自己的完整 `SeamlessCoop` 文件夹放在启动器旁，使 `SeamlessCoop/nrsc.dll` 存在，再运行 `Launch-Seamless.cmd`。预设使用默认 `NR0000.co2`；自定义存档扩展或其他模组请沿用自己的配置副本。
+
+文件夹整体可以移动；保持 `.me3`、启动器和 `mod/` 在一起。不要覆盖游戏归档，也不要通过普通官方匹配启动。
+
+### MMV 附加版
+
+保留现有 MMV/联机/汉化设置，将 `UltimateVoices-MMV` 放在原 `.me3` 旁。复制原配置，将包内 `ME3-PACKAGE.txt` 的条目追加到副本末尾，再用副本启动。路径和包 id 按自己的设置调整。
+
+支持的**未打语音补丁的 MMV 输入** `chr/c0000.anibnd.dcx` SHA-256：
 
 ```text
-dist/UltimateVoices/Launch.cmd
+0eafca3631ddbbf3b2ec67edb49068bdc4ebcf5e4d48b2b1720a0a1c2921be69
 ```
 
-双击它启动。新的 `UltimateVoices.me3` 保留原来的无缝联机 DLL、地图/武器扩展和汉化，只在最后增加语音声库目录。原启动配置仍可照常使用。
+这不是本包输出文件摘要，也不代表支持所有 MMV 版本。详见 [MMV 中文说明](release/overwatch/README-MMV.zh-CN.md) / [MMV English](release/overwatch/README-MMV.en.md)。
 
-生成包引用本机现有模组的绝对路径。**更换电脑或移动原模组后应在目标电脑重新构建**，不要直接复制这份本机配置。
+## 角色与默认播报
 
-## 自定义每个角色的语音
+| 配置键 / WAV 名称 | 黑夜君临 | 守望语音 |
+| --- | --- | --- |
+| wylder | 追踪者 | 安燃，敌方大招 |
+| guardian | 守护者 | 末日铁拳，敌方“毁天灭地！” |
+| ironeye | 铁眼 | 半藏，敌方大招 |
+| duchess | 女爵 | 禅雅塔，友方“感受宁静。” |
+| raider | 无赖 | 莱因哈特，敌方大招 |
+| revenant | 复仇者 | 安娜，受强化者听到的“你被强化了！快上！” |
+| recluse | 隐士 | 血律，敌方大招 |
+| executor | 执行者 | 温斯顿，共用绝招启动主咆哮 |
+| scholar | 学者 | 黑影，敌方大招 |
+| undertaker | 送葬者 | 死怨，敌方大招 |
 
-替换 `voices/` 中的同名 WAV，再重新构建。也可以在 `config/voices.json` 中给每个角色指定不同文件路径、`gain_db`、`normalize` 和 `enabled`。
+想换成自己的配音、音效或梗音频：下载可选构建工具与 Audio Sources，把对应角色 WAV 替换后重新构建。完整的文件名、音频格式、音量和恢复默认步骤见 **[自定义语音教程（中英）](docs/CUSTOM-AUDIO.md)**。
 
-| 配置键 / WAV 文件名 | 角色 |
-| --- | --- |
-| `wylder` | 追踪者 |
-| `guardian` | 守护者 |
-| `ironeye` | 铁眼 |
-| `duchess` | 女爵 |
-| `raider` | 无赖 |
-| `revenant` | 复仇者 |
-| `recluse` | 隐士 |
-| `executor` | 执行者 |
-| `scholar` | 学者 |
-| `undertaker` | 送葬者 |
+## 行为、兼容性与实测范围
 
-例如：
+- 谁安装谁使用自己电脑的声音；对方没安装时继续使用对方自己的原始声音。队友播报依赖本机收到原生事件，完整混装联机/远距离矩阵仍待验证。
+- 守护者、铁眼在游戏接受大招并开始动作时播报；学者约 3.3 秒收招时播报。只移除已定位的专用原喊声，不全局静音战斗语音。
+- 替换十个角色声库、两个声音目录、一份玩家动画及新增媒体。修改同一资源的动作/声音模组需要合并，不能只靠改变加载顺序，也不能删掉目录或动画来强行兼容。
+- 游戏中没有新增本项目 DLL、常驻进程、轮询、转码或额外网络协议。没有帧时间基准，不承诺零开销或提高 FPS。
+- MMV 版收到本机测试者“目前测没啥问题”的反馈；Native 版沿用相同音频与触发设置，已做离线构建和恢复审计，尚未单独完成实机矩阵。功能基线通过 103 项自动化测试。
 
-```json
-{
-  "gain_db": 0,
-  "normalize": true,
-  "characters": {
-    "wylder": { "audio": "../voices/wylder.wav", "enabled": true, "gain_db": -3 },
-    "guardian": { "enabled": false }
-  }
-}
-```
+## 卸载、问题反馈与源码
 
-相对路径以 **voices.json 所在文件夹** 为基准。未列出的角色关闭；`enabled: false` 保留原音效且无需提供文件。
+改用原启动配置即可停用；从自己的配置副本删除本包条目即可移除。不要把整包直接覆盖进 MMV 原目录。
 
-- 音频要求：PCM 16-bit WAV，单/双声道，采样率不超过 48 kHz，时长大于 0 且不超过 8 秒。
-- 不直接接收 MP3/OGG/浮点 WAV；用音频编辑器预先导出上述格式。
-- 默认先在构建时校准音量，再应用 `gain_db`（默认 `0 dB`，范围 `-60` 至 `12 dB`）。校准以整段 RMS `-18 dBFS` 为目标，峰值不超过 `-1 dBFS`、提升最多 `24 dB`；峰值较突出的音频可能因限制而达不到目标。静音不变，左右声道使用同一增益。正的自定义增益仍可能使样本饱和。
-- 设置全局或单角色 `normalize: false` 可保留源音量；单角色设置优先。原技能音效保留，已定位的大招原喊声由新播报替代。
-- 全部播报新增媒体总量上限为 16 MiB；音频只在构建时转换，战斗中无需启动转码器。
-- 中文测试语音由本机 Windows Microsoft Huihui 合成，不是角色正式配音。可运行 `scripts/Generate-TestVoices.ps1` 重新生成缺失样本；已有文件不会被覆盖。
+反馈问题请附游戏/ME3 版本、Native 或 MMV、角色、重现步骤及相关日志，先删去日志中的个人路径；不要上传存档或整包游戏资源。[提交问题](https://github.com/happys2333/Nightreign-Ultimate-Voices/issues)。
 
-## 从源码构建
-
-需要 Windows、Steam 版游戏、Mod Engine 3、.NET 9 SDK（准备构建工具）和 [uv](https://docs.astral.sh/uv/getting-started/installation/)。构建所需 Python 及依赖由 uv 管理，不需要安装 Wwise。
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Prepare-AnimationTools.ps1
-uv run python -m nuv inspect
-uv run python -m nuv build --base-profile "D:\SteamLibrary\steamapps\common\ELDEN RING NIGHTREIGN\Game\启动地图扩容+无缝联机.me3"
-uv run python -m nuv verify
-```
-
-也可以把原 `.me3` 文件拖到 `Build.cmd` 上。生成后双击 `dist/UltimateVoices/Launch.cmd`。
-
-可选参数：
-
-```powershell
-uv run python -m nuv build --game-dir "D:\SteamLibrary\steamapps\common\ELDEN RING NIGHTREIGN\Game" --base-profile "D:\your-mods\coop.me3" --voices "D:\my-voices\voices.json" --output "D:\my-mods\UltimateVoices"
-```
-
-省略 `--base-profile` 会生成**离线单机**配置，不加载无缝联机。使用无缝联机时应指定你原来实际使用的配置。首版支持独立的本地 ME3 配置，遇到继承配置会明确拒绝；现有角色声库被其他音频模组修改时也会停止构建，不静默覆盖冲突。
-
-构建器只选择性读取所需音频和动画资源，并核对游戏版本、原始角色声库和事件摘要。输出重新解析后检查所有原始音频媒体、非目标对象、事件原动作和未知数据块，成功后再交换输出目录。重复构建仅替换本工具拥有的完整输出；若该目录包含自己的文件或手动修改，会拒绝覆盖。
-
-## 卸载
-
-使用原来的 `.me3` 配置启动即可停用。要删除生成包：
-
-```powershell
-uv run python -m nuv uninstall
-```
-
-卸载仅处理拥有清单中的生成文件，不修改游戏归档、原模组、原配置或存档。输入音频 `voices/` 会保留。
-
-## 性能和触发时机
-
-游戏运行时增加的是原生 Wwise 一次性音频节点；四条新增动画事件也由游戏原生系统执行。本项目没有常驻进程、注入 DLL、内存轮询、截图识别或额外网络消息。PCM 转换、音量校准都在游戏启动前完成。本次中文样本增加 **2,689,832 bytes（约 2.57 MiB）** 媒体数据，含追踪者两个互斥释放分支。
-
-每段媒体同时内嵌在声库，并以相同编号、相同字节放在本地 `mod/sd/wem/<前两位>/<编号>.wem`。这样兼容直接加载声库和按事件预备加载，不依赖队友文件。额外磁盘副本约 2.57 MiB；它不意味着战斗时额外转码或传输音频。没有帧时间实测数据时不声称零帧率影响。
-
-守护者和铁眼在游戏接受输入并开始大招动作时播报，学者在收招时（约 3.3 秒）播报。追踪者仍按释放分支触发，其他角色按各自大招事件触发；取消边界仍待实际游戏验收。新语音使用 2D 播放以保持清晰，但前提仍是游戏在本机投递了该角色事件。远距离未加载的队友是否投递事件须由联机测试确认，原生声库不能凭空获得尚未同步到客户端的信息。
-
-当前 11 个播报挂载点、原始动画/行为绑定和空中/蓄力分支证据见 [事件映射](docs/event-map.md)。
-
-## 开发验证
-
-```powershell
-uv run python -m unittest discover -s tests -v
-```
-
-源代码使用 GPL-3.0。第三方格式资料和开发工具见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。仓库不包含提取的游戏声库；`local/`、`.tools/`、`dist/` 为本机构建缓存和输出，不进入版本控制。
+开发者说明：[源码构建](docs/DEVELOPMENT.zh-CN.md)、[事件映射](docs/event-map.md)、[验证记录](docs/verification.md)、[更新记录](CHANGELOG.md)。源代码按 [GPL-3.0](LICENSE) 发布；游戏素材分别属于相应权利人，代码许可不改变其归属。工具来源见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。代码开发大量使用生成式 AI，需求、选段和本机测试由用户指导，页面文案亦由 AI 起草。
